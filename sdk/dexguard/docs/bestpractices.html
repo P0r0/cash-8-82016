@@ -1,0 +1,915 @@
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="content-style-type" content="text/css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Best Practices</title>
+</head>
+<body>
+
+<script type="text/javascript" language="JavaScript">
+<!--
+if (window.self==window.top)
+  document.write('<a target="_top" href="index.html#bestpractices.html" class="largebutton">DexGuard index</a>')
+//-->
+</script>
+<noscript>
+<a target="_top" href="index.html#bestpractices.html" class="largebutton">DexGuard index</a>
+</noscript>
+
+<h2>Best Practices</h2>
+
+In this section, we describe recommended steps to harden code against reverse
+engineering. The idea is to apply different techniques to create multiple
+layers of obfuscation. Although no single technique is unbreakable, each layer
+further raises the bar for attackers. The different techniques protect the
+application code, but they also protect one another. We go over each of the
+techniques, explaining why they are useful, how you can apply them, and how
+you can verify their effects.
+<ul>
+<li><a href="#coredesign">Core design</a></li>
+<li><a href="#securecommunication">First layer: secure communication</a></li>
+<li><a href="#nameobfuscation">Second layer: name obfuscation</a></li>
+<li><a href="#stringencryption">Third layer: string encryption</a></li>
+<li><a href="#reflection">Fourth layer: reflection</a></li>
+<li><a href="#codeobfuscation">Fifth layer: code obfuscation</a></li>
+<li><a href="#logging">Sixth layer: removing logging code and stack
+    traces</a></li>
+<li><a href="#tamperdetection">Seventh layer: tamper detection</a></li>
+<li><a href="#environmentchecks">Eigth layer: environment checks</a></li>
+<li><a href="#assetencryption">Ninth layer: asset encryption</a></li>
+<li><a href="#resourceencryption">Tenth layer: resource encryption</a></li>
+<li><a href="#nativelibraryencryption">Eleventh layer: native library encryption</a></li>
+<li><a href="#classencryption">Twelfth layer: class encryption</a></li>
+<li><a href="#tuningobfuscation">Summary: tuning obfuscation</a></li>
+</ul>
+
+<h3><a name="coredesign">Core design</a></h3>
+
+<h4>Discussion</h4>
+
+The essential basis for a hardened application is a sound design and a robust
+implementation. Even if you will obfuscate your code, you should look at it as
+if it is open source and consider the worst-case scenarios. The details are
+application-specific and lie outside the scope of this guide, but you can find
+the a lot of basic principles in books, blogs, and online presentations.
+
+<h4>More information</h4>
+
+<ul>
+<li><i>Android Security Cookbook</i>, by Keith Makan and Scott
+    Alexander-Bown.</li>
+<li><i>Android Security Internals</i>, by Nikolay Elenkov.</li>
+<li><i>Android Hacker's Handbook</i>, by Joshua J. Drake, Zach Lanier, Collin
+    Mulliner, Pau Oliva Fora, Stephen A. Ridley, and Georg Wicherski.</li>
+</ul>
+
+<h3><a name="securecommunication">First layer: secure communication</a></h3>
+
+<h4>Discussion</h4>
+
+If your application communicates with a server, you should encrypt the
+communication with SSL (Secure Sockets Layer) or the more recent TLS
+(Transport Layer Security). These protocols have been developed for secure
+communication between a web browser and a server. In a web browser, a user can
+see the padlock icon when the communication is secure. In an Android
+application, the user doesn't see a padlock icon, so the developer shouldn't
+forget to use SSL when appropriate.
+<p>
+The server contains a chain of certificates with public keys and certified
+names. You can obtain a certificate from a Certificate Authority (CA). With
+the standard Android API, the Android runtime checks such a chain with its
+database of root certificates. Alternatively, you can create a self-signed
+certificate. You then need to check the certificate yourself in your
+application.
+<p>
+Occasionally, a Certificate Authority is compromised (as happened with Comodo
+and DigiNotar). New releases of Android then typically update the database of
+root certificates. However, if your application always communicates with the
+same server, it should <i>pin</i> the certificate or its public key, i.e. only
+accept a minimal, fixed list of trusted certificates or keys. This technique
+ensures that the application is always talking to the right server and blocks
+man-in-the-middle attacks. You should be aware that some large websites update
+their certificates and keys regularly.
+
+<h4>Configuration</h4>
+
+You can find the code to create connections with certificate pinning or public
+key pinning for different Android APIs in the
+sample <code>samples/basic/SSLPinning</code>.
+
+
+<h4>Verification</h4>
+
+<ul>
+<li>Certificate pinning: remove your trust store from the assets. The server
+    requests should no longer work.</li>
+<li>Public key pinning: change your list of trusted hashes. The server
+    requests should no longer work.</li>
+</ul>
+
+<h4>More information</h4>
+
+<ul>
+<li>Working sample project: <code>samples/basic/SSLPinning</code></li>
+</ul>
+
+
+<h3><a name="nameobfuscation">Second layer: name obfuscation</a></h3>
+
+<h4>Discussion</h4>
+
+DexGuard obfuscates the names of identifiers in the applications that it
+processes. This means that it renames resource files, resoures, classes,
+fields, and methods using meaningless names, whereever possible. By default,
+it uses UTF-8 characters that are difficult to distinguish. This obfuscation
+step makes the code base smaller and harder to reverse-engineer.
+
+<h4>Configuration</h4>
+
+In release builds, DexGuard automatically applies name obfuscation. DexGuard's
+default configuration already takes care of common entry points like the
+Android manifest, with all depending activities, intentions, resources, etc.
+<li>
+Any code or third-party frameworks that rely on reflection may be confused by
+changing the names of classes, fields, methods, and even resources. If the code
+requires that they keep their original names, you should specify the
+proper <code><a href="usage.html#keepcodeoptions">-keep</a></code> options and
+<code><a href="usage.html#keepresourcesoptions">-keepresourcefiles</a></code>
+options. DexGuard's default configuration helps by already providing tuned
+configuration for a number of <a href="examples.html">common libraries and
+frameworks</a>.
+
+<h4>Verification</h4>
+
+You can find the map of original names to obfuscated names in
+<code>bin/proguard/mapping.txt</code> (with Ant),
+<code>proguard/mapping.txt</code> (with Eclipse), or
+<code>build/outputs/proguard/release/mapping.txt</code> (with Gradle).
+<p>
+Such a mapping file may look like this:
+<pre>
+com.example.HelloWorldActivity -&gt; com.example.HelloWorldActivity:
+    39:42:void onCreate(android.os.Bundle) -&gt; onCreate
+com.example.Util -&gt; o.&#xFF65;:
+    byte[] values -&gt; &#xFF65;
+    int doSomething(android.content.Context) -&gt; &#xFF65;
+    java.lang.String compute(android.content.Context) -&gt; &#x02CA;
+</pre>
+Note that names from the Android runtime are not obfuscated, since obfuscating
+them would break the application.
+<p>
+You can also see the obfuscated names if you disassemble the code with a tool
+like dexdump (<code>build-tools/20.0.0/dexdump</code> in the Android SDK), or
+baksmali (free and open-source:
+<a href="http://code.google.com/p/smali/">code.google.com/p/smali/</a>).
+<p>
+In the debug version of the application, the names are still readable:
+<pre>
+  Class descriptor  : 'Lcom/example/Util;
+  ...
+    #0              : (in Lcom/example/Util;)
+      name          : 'values'
+      ...
+</pre>
+In the hardened release version of the application, the names are obfuscated:
+<pre>
+  Class descriptor  : 'Lo/&#xFF65;;'
+  ...
+    #0              : (in Lo/&#xFF65;;)
+      name          : '&#xFF65;'
+      ...
+</pre>
+
+<h4>More information</h4>
+
+<ul>
+<li><a href="usage.html#keepcodeoptions">Keep Options for Code</a></li>
+<li><a href="usage.html#keepresourcesoptions">Keep Options for Resources</a></li>
+<li><a href="usage.html#keepoverview">Overview of Keep Options</a></li>
+<li><a href="verification.html">Verification</a></li>
+</ul>
+
+
+<h3><a name="stringencryption">Third layer: string encryption</a></h3>
+
+<h4>Discussion</h4>
+
+String constants in the source code are still readable in the compiled
+application, with a disassembler like dexdump or baksmali, or a decompiler for
+Dalvik bytecode. You should let DexGuard encrypt sensitive string constants,
+so they become invisible to static analysis. Keys, tokens,
+communication-related strings, and log messages are all good candidates for
+encryption. Note that string encryption is actually a form of obfuscation,
+since the strings necessarily have to be decrypted at runtime.
+
+<h4>Configuration</h4>
+
+You can apply string encryption with the option
+<code><a href="usage.html#encryptstrings">-encryptstrings</a></code>. It
+offers a number of ways to specify the strings to be encrypted. The most
+common ones:
+<ul>
+<li>Obfuscate the specified string constant:
+<pre>
+-encryptstrings class com.example.MyConstants {
+    public static final java.lang.String SECRET_KEY;
+}
+</pre>
+Be aware that the Java compiler already inlines final string constants
+whereever they are used in the code, which may be in other classes. They may
+have spread throughout the code before DexGuard processes it. With the above
+configuration, DexGuard encrypts these constants throughout the code, to
+provide the expected results.
+</li>
+<li>Obfuscate all string constants actually used in the specified class:
+<pre>
+-encryptstrings class com.example.MySecretClass
+</pre>
+This configuration is convenient if you can identify one or more sensitive
+classes.
+</li>
+</ul>
+All options accept wildcards. Technically, it is possible to encrypt all
+strings in all classes in the code, but this is generally not advisable for
+performance reasons.
+
+<h4>Verification</h4>
+
+With the <a href="usage.html#verbose">-verbose</a></code> option, DexGuard
+prints out how many strings it has encrypted.
+<p>
+In the debug version of the application, you'll easily find the original
+strings with a disassembler. For instance:
+<pre>
+... const-string v0, "Hello world!"
+</pre>
+In the release version of the application, encrypted strings should no longer
+be visible.
+
+<h4>More information</h4>
+
+<ul>
+<li><code><a href="usage.html#encryptstrings">-encryptstrings</a></code></li>
+<li><a href="examples.html#encryptstrings">Examples: Encrypting strings</a></li>
+<li>Working sample project: <code>samples/basic/StringEncryption</code></li>
+<li><a href="verification.html">Verification</a></li>
+<li>Implement an <a href="plugins.html">encryption plugin</a> to use your own encryption algorithm.</li>
+</ul>
+
+
+<h3><a name="reflection">Fourth layer: reflection</a></h3>
+
+<h4>Discussion</h4>
+
+Name obfuscation can't change invocations of runtime classes, methods, and
+fields, since that would break the application's code. These invocations
+therefore remain conveniently readable in the disassembled or decompiled code.
+This provides attackers a lot of information about the structure and execution
+flow of the application. Especially for sensitive APIs, such as encryption and
+secure communication, you may want to make the code less readable by replacing
+the direct invocations by reflection.
+<p>
+You can let DexGuard replace invocations by reflection and then encrypt the
+resulting strings. They then become difficult to find with static analysis.
+
+<h4>Configuration</h4>
+
+For example, encrypt some invocations of the <code>SecureRandom</code> with
+the option
+<code><a href="usage.html#accessthroughreflection">-accessthroughreflection</a></code>:
+<pre>
+-accessthroughreflection class java.security.SecureRandom {
+    &lt;init&gt;();
+    int nextInt();
+}
+</pre>
+You should combine the reflection with string encryption. More specifically,
+you can enumerate all strings that are created for the reflection:
+<pre>
+-encryptstrings "java.security.SecureRandom", "nextInt"
+</pre>
+An easier approach may be to encrypt all strings in the class that invokes the
+cryptographic classes:
+<pre>
+-encryptstrings class com.example.MySecretClass
+</pre>
+
+<h4>Verification</h4>
+
+With the <a href="usage.html#verbose">-verbose</a></code> option, DexGuard
+prints out how much reflection it has added.
+<p>
+In the debug version of the application, you'll easily find the original
+method invocation with a disassembler. For instance:
+<pre>
+... new-instance v0, Ljava/security/SecureRandom;
+... invoke-direct {v0}, Ljava/security/SecureRandom;.<init>:()V
+...
+... invoke-virtual {v0}, Ljava/security/SecureRandom;.nextInt:()I
+</pre>
+In the hardened release version of the application, you can check that any
+invocations that you have specified are no longer visible.
+
+<h4>More information</h4>
+
+<ul>
+<li><code><a href="usage.html#accessthroughreflection">-accessthroughreflection</a></code></li>
+<li><a href="examples.html#accessthroughreflection">Examples: Adding reflection
+    for sensitive APIs</a></li>
+<li>Working sample project: <code>samples/basic/Reflection</code></li>
+<li><a href="verification.html">Verification</a></li>
+</ul>
+
+
+<h3><a name="codeobfuscation">Fifth layer: code obfuscation</a></h3>
+
+<h4>Discussion</h4>
+
+The previously outlined obfuscation techniques do not change the execution
+flow of the application. This allows an attacker to quite easily reconstruct
+java source code using a decompiler to further analyze or modify the application.
+<p>
+You can let DexGuard obfuscate the application's code, which then becomes more
+difficult to reverse-engineer using decompilers or disassemblers.
+
+<h4>Configuration</h4>
+
+You can apply code obfuscation with the option
+<code><a href="usage.html#obfuscatecode">-obfuscatecode</a></code>. It
+allows to specify a <a href="usage.html#strenghmodifiers">strength modifier</a>
+which controls how aggressive the methods will be obfuscated.
+<p>
+For example, obfuscate all methods of <code>MyActivity</code> with 'low' strength:
+<pre>
+-obfuscatecode,low class com.example.MyActivity
+</pre>
+<p>
+The option accepts wildcards as well. For example, obfuscate all methods of all
+classes inside package <code>com.example.secure</code> with 'high' strength:
+<pre>
+-obfuscatecode,high class com.example.secure.**
+</pre>
+
+<h4>Verification</h4>
+
+With the <a href="usage.html#verbose">-verbose</a></code> option, DexGuard
+prints out for how many methods it has obfuscated the code.
+<p>
+Applying a decompiler to the debug version of your application will show
+java code that closely matches the original source code of the method.
+<p>
+In the hardened release version of the application, decompilers will either
+completely fail to show corresponding source code, or display a highly
+obfuscated version which doesn't match the original execution flow anymore.
+
+<h4>More information</h4>
+
+<ul>
+<li><a href="usage.html#obfuscatecode">-obfuscatecode</a></li>
+<li><a href="usage.html#strengthmodifiers">Strength modifiers</a></li>
+<li>Working sample project: <code>samples/basic/CodeObfuscation</code></li>
+<li><a href="verification.html">Verification</a></li>
+</ul>
+
+
+<h3><a name="logging">Sixth layer: removing logging code and stack traces</a></h3>
+
+<h4>Discussion</h4>
+
+Logging code provides attackers information about the structure and execution
+flow of the application. From the perspective of thwarting reverse engineering,
+you should not leave logging code in released applications. If your logging
+code (or the logging code in your external libraries) does not depend on
+compile-time flags like
+<code>Build.DEBUG</code>, you can let DexGuard remove logging calls for you.
+
+<h4>Configuration</h4>
+
+Remove all standard Android logging invocations:
+<pre>
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
+    public static java.lang.String
+                    getStackTraceString(java.lang.Throwable);
+}
+</pre>
+<p>
+Remove all printing of stack traces:
+<pre>
+-assumenosideeffects class java.lang.Exception {
+    public void printStackTrace();
+}
+</pre>
+
+<h4>Verification</h4>
+
+In the debug version of the application, you may find many logging invocations
+with a disassembler. For instance:
+<pre>
+... invoke-static {v0, v1}, Landroid/util/Log;.d:(Ljava/lang/String;Ljava/lang/String;)I
+</pre>
+In the release version of the application, all of these invocation should be
+gone.
+
+<h4>More information</h4>
+
+<ul>
+<li><code><a href="usage.html#assumenosideeffects">-assumenosideeffects</a></code></li>
+<li><a href="examples.html#logging">Examples: Removing logging code</a></li>
+<li>Working sample project: <code>samples/basic/LoggingRemoval</code></li>
+<li><a href="verification.html">Verification</a></li>
+</ul>
+
+
+
+<h3><a name="tamperdetection">Seventh layer: tamper detection</a></h3>
+
+<h4>Discussion</h4>
+
+Attackers can extract information like encryption and decryption keys by
+injecting logging code into an application. They disassemble the application,
+insert logging code, and run the application again. Their logging code can
+print out decrypted strings, which include the keys.
+<p>
+You can fight this type of dynamic analysis by adding tamper detection to your
+application. Tamper detection actively checks the integrity of the application
+at runtime and acts suitably if the application has been modified.
+
+<h4>Configuration</h4>
+
+DexGuard offers tamper detection with simple methods that you can call from
+your application. You first need to add the library
+<code>samples/basic/TamperDetection/libs/dexguard-runtime.jar</code> to your
+application. You can then invoke the tamper detection methods in the
+application and act based on their return values.
+<ul>
+<li>Check the integrity of the entiry apk file:
+<pre>
+int check = com.guardsquare.dexguard.runtime.detection.TamperDetector.checkApk(context);
+if (check != 0) {
+    // Tampering detected.
+    ...
+}
+</pre>
+</li>
+<li>Check whether the application is still signed with the original certificate:
+<pre>
+int check = com.guardsquare.dexguard.runtime.detection.CertificateChecker.checkCertificate(context);
+if (check != 0) {
+    // Different certificate detected.
+    ...
+}
+</pre>
+</li>
+</ul>
+Both methods accept an optional additional integer parameter, which they
+return instead of 0 if the checks are ok. You can pick such a parameter to
+make the code less predictable.
+<p>
+You should weave the tamper detection code into your regular code, making it
+more difficult to simply disable it. For instance, you could use the return
+value to affect the computation of a key, so the computed key is wrong if the
+application has been tampered with. A simplistic example:
+<pre>
+int checkedKey = com.guardsquare.dexguard.runtime.detection.TamperDetector.checkApk(context, key);
+</pre>
+<p>
+If the code detects tampering, the application should fail quietly, possibly
+with a delay, without giving away any further information.
+<p>
+Once you have added your tamper detection code, you should further harden it
+by encrypting its class, together with the tamper detection library
+(<code>com.guardsquare.dexguard.runtime.**</code>).
+
+<h4>Verification</h4>
+
+You can check if the tamper detection works by unpacking the application and
+repackaging it, for instance with unzip and zip. You can also tamper with the
+application simply by applying the standard tool zipalign:
+<pre>
+zipalign -f 4 myapplication.apk
+</pre>
+The tool repackages the application without fundamentally changing it. This
+will trigger the tamper detection at runtime.
+<p>
+You can check the certificate verification by re-signing the application with
+a different certificate:
+<pre>
+zip -d MyApp.apk META-INF/*
+jarsigner -keystore debug.keystore -storepass android -keypass android -signedjar \
+    MyApp_signed.apk MyApp.apk AndroidDebugKey
+</pre>
+This will trigger the certificate check at runtime.
+
+<h4>More information</h4>
+
+<ul>
+<li>Working sample project: <code>samples/basic/TamperDetection</code></li>
+<li>Javadoc of the API: <a href="runtime/index.html" target="runtime">
+    com.guardsquare.dexguard.runtime.detection</a>.</li>
+</ul>
+
+
+<h3><a name="environmentchecks">Eigth layer: environment checks</a></h3>
+
+<h4>Discussion</h4>
+
+Even if the application is unaltered, the underlying runtime may be subverted.
+The application calls into the Android runtime in good faith, but the runtime
+code may have been compromised. It may for instance intercept method calls
+that communicate or decrypt sensitive data, and pass the results to an
+attacker.
+<p>
+You may therefore want to check the environment in which the application is
+running. This is tricky, since the subverted environment may be constructed to
+look as ordinary and inconspicuous as possible. Nevertheless, you can perform
+some basic sanity checks:
+<ul>
+<li>Check whether the application is debuggable or is being debugged.</li>
+<li>Check whether the application is running in an emulator.</li>
+<li>Check whether the application is running on a rooted device.</li>
+</ul>
+Like tamper detection, these techniques actively check the integrity of the
+application and its environment at runtime. You can then act suitably if the
+environment is not the standard intended environment.
+
+<h4>Configuration</h4>
+
+DexGuard offers environment checks as simple methods that you can call from
+your application. You first need to add the library
+<code>samples/basic/EnvironmentCheck/libs/dexguard-runtime.jar</code> to your
+application. You can then invoke the environment checking methods in the
+application and act based on their return values.
+<ul>
+<li>Check whether the application is debuggable:
+<pre>
+int check = com.guardsquare.dexguard.runtime.detection.DebugDetector.isDebuggable(context);
+if (check != 0) {
+    // Application is debuggable.
+    ...
+}
+</pre>
+</li>
+<li>Check whether the application is being debugged:
+<pre>
+int check = com.guardsquare.dexguard.runtime.detection.DebugDetector.isDebuggerConnected();
+if (check != 0) {
+    // Application is being debugged.
+    ...
+}
+</pre>
+</li>
+<li>Check whether the application has been signed with a debug key:
+<pre>
+int check = com.guardsquare.dexguard.runtime.detection.DebugDetector.isSignedWithDebugKey(context);
+if (check != 0) {
+    // Application has been signed with a debug key.
+    ...
+}
+</pre>
+</li>
+<li>Check whether the application is running in an emulator:
+<pre>
+int check = com.guardsquare.dexguard.runtime.detection.EmulatorDetector.isRunningInEmulator(context);
+if (check != 0) {
+    // Application is running in an emulator.
+    ...
+}
+</pre>
+</li>
+<li>Check whether the application is running on a rooted device:
+<pre>
+int check = com.guardsquare.dexguard.runtime.detection.RootDetector.isDeviceRooted();
+if (check != 0) {
+    // Application is running on a rooted device.
+    ...
+}
+</pre>
+</li>
+</ul>
+All methods accept an optional additional integer parameter. which they return
+instead of 0 if the checks are ok. You can pick such a parameter to make the
+code less predictable.
+<p>
+You should again weave the tamper detection code into your regular code and
+further harden it by encrypting the class together with the library
+(<code>com.guardsquare.dexguard.runtime.**</code>).
+
+<h4>Verification</h4>
+
+If you have implemented these checks, you can try setting the debug flag,
+running the application in an emulator, or running the application on a rooted
+device.
+
+<h4>More information</h4>
+
+<ul>
+<li>Working sample project: <code>samples/basic/EnvironmentCheck</code></li>
+<li>Javadoc of the API: <a href="runtime/index.html" target="runtime">
+    com.guardsquare.dexguard.runtime.detection</a>.</li>
+</ul>
+
+
+<h3><a name="assetencryption">Ninth layer: asset encryption</a></h3>
+
+<h4>Discussion</h4>
+
+By default, DexGuard leaves asset files untouched. You can explicitly specify
+to encrypt sensitive asset files. DexGuard then encrypts them and your
+application will decrypt them on the fly.
+
+<h4>Configuration</h4>
+
+You can specify the asset files that you want to encrypt with the option <code>
+<a href="usage.html#encryptassetfiles">-encryptassetfiles</a></code>. For
+ example:
+<pre>
+-encryptassetfiles assets/secret.txt
+</pre>
+DexGuard only encrypts asset files that are read with
+an <code>AssetManager</code> and <code>open("secret.txt")</code>, with a
+literal string as argument.</code>.
+
+<h4>Verification</h4>
+
+With the <a href="usage.html#verbose">-verbose</a></code> option, DexGuard
+prints out how many asset files it has encrypted.
+<p>
+If you unpack encrypted asset files from the hardened release version of the
+application, you'll see that they have the same lengths as the original files,
+but encrypted contents.
+
+<h4>More information</h4>
+
+<ul>
+<li><code><a href="usage.html#encryptassetfiles">-encryptassetfiles</a></code></li>
+<li>Working sample project: <code>samples/basic/AssetEncryption</code></li>
+<li><a href="verification.html">Verification</a></li>
+<li>Implement an <a href="plugins.html">encryption plugin</a> to use your own encryption algorithm.</li>
+</ul>
+
+<h3><a name="resourceencryption">Tenth layer: resource encryption</a></h3>
+
+<h4>Discussion</h4>
+
+By default, DexGuard leaves resource files untouched. You can explicitly specify
+to encrypt sensitive resource files. DexGuard then encrypts them and your
+application will decrypt them on the fly.
+
+<h4>Configuration</h4>
+
+You can specify the resource files that you want to encrypt with the option <code>
+<a href="usage.html#encryptresourcefiles">-encryptresourcefiles</a></code>. For
+ example:
+<pre>
+-encryptresourcefiles res/layout/**
+</pre>
+DexGuard can encrypt resources in <code>res/layout</code>, <code>res/menu</code> and
+<code>res/xml</code>.
+
+<h4>Verification</h4>
+
+With the <a href="usage.html#verbose">-verbose</a></code> option, DexGuard
+prints out how many resource files it has encrypted.
+<p>
+If you unpack encrypted resource files from the hardened release version of the
+application, you'll see that they can no longer be viewed with an Android binary
+XML viewer like aapt.
+
+<h4>More information</h4>
+
+<ul>
+<li><code><a href="usage.html#encryptresourcefiles">-encryptresourcefiles</a></code></li>
+<li>Working sample project: <code>samples/basic/ResourceEncryption</code></li>
+<li><a href="verification.html">Verification</a></li>
+<li>Implement an <a href="plugins.html">encryption plugin</a> to use your own encryption algorithm.</li>
+</ul>
+
+
+<h3><a name="nativelibraryencryption">Eleventh layer: native library encryption</a></h3>
+
+<h4>Discussion</h4>
+
+By default, DexGuard already obfuscates the names of JNI functions inside
+native libraries. You can explicitly specify to further encrypt sensitive
+native libraries. DexGuard then encrypts them and your application will
+decrypt them on the fly. The encryption prevents static analysis of the native
+code and tampering with the libraries.
+
+<h4>Configuration</h4>
+
+You can specify the native libraries files that you want to encrypt with the
+option
+<code><a href="usage.html#encryptnativelibraries">-encryptnativelibraries</a></code>.
+For example:
+<pre>
+-encryptnativelibraries lib/*/libsecret.so
+</pre>
+DexGuard only encrypts native library files that are opened with
+<code>System.loadLibrary("secret")</code>, with a literal string as
+argument.</code>.
+
+<h4>Verification</h4>
+
+With the <a href="usage.html#verbose">-verbose</a></code> option, DexGuard
+prints out how many native library files it has encrypted.
+<p>
+If you unpack encrypted native library files from the hardened release version
+of the application, you'll see that they have the same lengths as the original
+files, but encrypted contents instead of the usual ELF format.
+
+<h4>More information</h4>
+
+<ul>
+<li><code><a href="usage.html#encryptnativelibraries">-encryptnativelibraries</a></code></li>
+<li>Working sample project: <code>samples/basic/NativeLibraryEncryption</code></li>
+<li><a href="verification.html">Verification</a></li>
+<li>Implement an <a href="plugins.html">encryption plugin</a> to use your own encryption algorithm.</li>
+</ul>
+
+
+<h3><a name="classencryption">Twelfth layer: class encryption</a></h3>
+
+<h4>Discussion</h4>
+
+Name obfuscation, string encryption, reflection, asset encryption, resource
+encryption and native library encryption harden the code and resources against
+static analysis. Tamper detection and environment checks harden against dynamic
+analysis. Class encryption can provide another powerful layer over these
+techniques. It can completely hide the decryption code and reflection code,
+hardening it against static analysis and against tampering.
+<p>
+Encrypting all classes is not technically possible and would add an excessive
+overhead. You should identify a number of sensitive classes and encrypt those.
+Typically, these are the classes that you have already hardened with other
+techniques. For instance, you should include your tamper detection code and
+the associated library classes.
+
+<h4>Configuration</h4>
+
+You can specify the classes that you want to encrypt with the option <code>
+<a href="usage.html#encryptclasses">-encryptclasses</a></code>:
+<pre>
+-encryptclasses com.example.MySecretClass,
+                com.example.MySecretClass$*
+</pre>
+The second name in the list matches all inner classes of
+<code>MySecretClass</code>, since inner classes often also contain sensitive
+code.
+
+<h4>Verification</h4>
+
+With the <a href="usage.html#verbose">-verbose</a></code> option, DexGuard
+prints out how many classes it has encrypted.
+<p>
+Applying a disassembler to the hardened release version of your application,
+you may find traces of string encryption, reflection, tamper detection,
+environment checks, and original code. After having added class encryption for
+classes that contain such code, it will no longer be visible or modifiable.
+
+<h4>More information</h4>
+
+<ul>
+<li><code><a href="usage.html#encryptclasses">-encryptclasses</a></code></li>
+<li><a href="examples.html#encryptclasses">Examples: Encrypting classes</a></li>
+<li>Working sample projects: <code>samples/basic/ClassEncryption</code>,
+    <code>samples/basic/TamperDetection</code>,
+    <code>samples/basic/EnvironmentCheck</code></li>
+<li><a href="verification.html">Verification</a></li>
+</ul>
+
+<h3><a name="tuningobfuscation">Summary: tuning obfuscation</a></h3>
+
+In summary, when you're protecing an application or a library, you first need
+to make sure that the code still works (in the presence of any reflection) and
+then you should harden the sensitive parts of the code.
+<ul>
+<li>To make sure that the code still works, you may need to reduce the
+    obfuscation of some code or resources. This generally means preserving
+    code and resources with their original names, so reflective code can still
+    access them by these names.</li>
+<li>To harden the application or library beyond the default name obfuscation,
+    you should identify the sensitive parts and apply the various encryption
+    options. These options aren't part of the default settings, because they
+    may have some impact on performance.</li>
+</ul>
+<p>
+The following diagram summarizes the relevant options:
+<p>
+<div class="center">
+  <div class="diagram">
+    <div class="row">
+      <div class="col" style="width: 235px;">
+        <div class="header">Default obfuscation</div>
+        <div class="darkgreen box">Android manifest<br/>(binary .xml)
+          <div class="note">Name obfuscation</div>
+        </div>
+        <div class="darkgreen box">Java byte code<br/>(.class)
+          <div class="note">Name obfuscation</div>
+        </div>
+        <div class="darkgreen box">Native code<br/>(.so)
+          <div class="note">Name obfuscation</div>
+        </div>
+        <div class="darkgreen box">Resources<br/>(.arsc)
+          <div class="note">Name obfuscation</div>
+        </div>
+        <div class="darkgreen box">Resource files<br/>(binary .xml, .png,...)
+          <div class="note">Name obfuscation</div>
+        </div>
+        <div class="darkgreen box">Assets<br/>(.txt,...)
+          <div class="note">Name obfuscation</div>
+        </div>
+      </div>
+      <div class="col" style="width: 350px;">
+        <div class="header">Reducing obfuscation</div>
+        <div class="green box">Android manifest<br/>(binary .xml)
+          <div class="note">
+            <a href="usage.html#keepresourcexmlattributenames">-keepresourcexmlattributenames</a>
+          </div>
+        </div>
+        <div class="green box">Java byte code<br/>(.class)
+          <div class="note">
+            <a href="usage.html#keepoverview">-keep</a><br/>
+            <a href="usage.html#keepattributes">-keepattributes</a>
+          </div>
+        </div>
+        <div class="green box">Native code<br/>(.so)
+          <div class="note">
+            <a href="usage.html#keepoverview">-keep</a><br/>
+            <a href="usage.html#keepresourcefiles">-keepresourcefiles</a>
+          </div>
+        </div>
+        <div class="green box">Resources<br/>(.arsc)
+          <div class="note">
+            <a href="usage.html#keepresources">-keepresources</a><br/>
+          </div>
+        </div>
+        <div class="green box">Resource files<br/>(binary .xml, .png,...)
+          <div class="note">
+            <a href="usage.html#keepresourcefiles">-keepresourcefiles</a>
+          </div>
+        </div>
+        <div class="green box">Assets<br/>(.txt,...)
+          <div class="note">
+            <a href="usage.html#keepresourcefiles">-keepresourcefiles</a>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="width: 300px;">
+        <div class="header">Adding obfuscation</div>
+        <div class="darkgreen box">Android manifest<br/>(binary .xml)</div>
+        <div class="blackgreen box">Java byte code<br/>(.class)
+          <div class="note">
+            <a href="usage.html#accessthroughreflection">-accessthroughreflection</a><br/>
+            <a href="usage.html#obfuscatecode">-obfuscatecode</a><br/>
+            <a href="usage.html#encryptclasses">-encryptclasses</a><br/>
+            <a href="usage.html#encryptstrings">-encryptstrings</a><br/>
+          </div>
+        </div>
+        <div class="blackgreen box">Native code<br/>(.so)
+          <div class="note">
+            <a href="usage.html#encryptnativelibraries">-encryptnativelibraries</a><br/>
+          </div>
+        </div>
+        <div class="darkgreen box">Resources<br/>(.arsc)</div>
+        <div class="blackgreen box">Resource files<br/>(binary .xml, .png,...)
+          <div class="note">
+            <a href="usage.html#encryptresourcefiles">-encryptresourcefiles</a><br/>
+          </div>
+        </div>
+        <div class="blackgreen box">Assets<br/>(.txt,...)
+          <div class="note">
+            <a href="usage.html#encryptassetfiles">-encryptassetfiles</a><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>
+If you want to go a step further, you can also create your own encryption
+plugins for DexGuard. Such plugins increase the variation in obfuscated code,
+making it more difficult for attackers to detect patterns.
+
+<h4>More information</h4>
+
+<ul>
+<li><code><a href="usage.html#pluginjars">-pluginjars</a></code></li>
+<li>Working sample project: <code>samples/advanced/EncryptionPlugins</code></li>
+<li>Javadoc of the plugins API: <a href="plugins/index.html" target="plugins">com.guardsquare.dexguard.encrypt</a></li>
+</ul>
+
+<hr />
+<address>
+Copyright &copy; 2002-2016
+<a target="other" href="http://www.guardsquare.com/">GuardSquare NV</a>.
+</address>
+</body>
+</html>

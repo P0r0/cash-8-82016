@@ -1,0 +1,10 @@
+buildscript {
+    repositories {
+        flatDir { dirs '../../../lib' } // For the DexGuard plugin.
+        jcenter()                          // For the Android plugin.
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath ':dexguard:'
+    }
+}

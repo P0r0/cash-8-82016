@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#FFFFFF"
+    tools:context="co.tslc.cashe.android.Congratulations">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bgArc"
+        android:src="@drawable/bg_arc"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"/>
+
+    <!--<ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/icon_credited"
+        android:layout_below="@+id/bgArc"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/icon_credited"
+        android:layout_marginTop="48dp" />-->
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/icon_credited"
+        android:layout_below="@+id/bgArc"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/icon_credited"
+        android:text="CONGRATULATIONS"
+        android:id="@+id/caption"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"
+        android:id="@+id/title_underline"
+        android:layout_below="@+id/caption"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/icon_credited">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="YOUR ACCOUNT WILL BE CREDITED"
+            android:id="@+id/creditMsg"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvCasheAmt"
+            android:textSize="48dp"
+            android:textColor="#33ACA1"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Details"
+            android:id="@+id/tvView"
+            android:layout_marginTop="20dp"
+            android:textColor="#33ACA1"
+            android:textSize="18dp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibOK"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_ok"
+            android:layout_marginBottom="12dp" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

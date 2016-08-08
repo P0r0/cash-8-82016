@@ -1,0 +1,11 @@
+# DexGuard license file
+licensee              = Aeries Technology Solutions Pvt Ltd
+contact               = Vijay Kalapala
+contactEmail          = casheadmin@aeriestechnology.com
+product               = DexGuard
+edition               = Enterprise
+version               = 7.*
+package               = co.tslc.cashe.android
+expiryDate            = 2017-03-30
+maintenanceExpiryDate = 2017-03-30
+key                   = 1a486864f3fcd9e625d135eb05668280ac6775f9b30628b9c97e520367155d2c3ef1251b8ec86019d9720feaca3eae0d409e21a76c3aca255fc46bb24983fea1

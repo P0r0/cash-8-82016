@@ -1,0 +1,22 @@
+# DexGuard's default settings are fine for this sample application,
+# but we'll harden the library some more.
+
+# We'll display some more statistics about the processed code.
+-verbose
+
+# Please do NOT use a hard-coded password, this is for demonstrating purposes!
+# Either prompt the user for the password, or use the CacheWord library to handle
+# password prompting and caching.  https://github.com/guardianproject/cacheword
+-encryptstrings "my fake password"
+
+# Hide the name of our virtual filesystem.
+#-encryptstrings "myfiles.db"
+
+# Remove the logging.
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
+}

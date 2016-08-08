@@ -1,0 +1,354 @@
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="content-style-type" content="text/css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>DexGuard Introduction</title>
+</head>
+<body>
+
+<script type="text/javascript" language="JavaScript">
+<!--
+if (window.self==window.top)
+  document.write('<a target="_top" href="index.html#introduction.html" class="largebutton">DexGuard index</a>')
+//-->
+</script>
+<noscript>
+<a class="largebutton" target="_top"  href="index.html#introduction.html">DexGuard index</a>
+</noscript>
+
+<h2>Introduction</h2>
+
+<b>DexGuard</b> processes Android applications and libraries, making them
+smaller, more efficient, and better hardened against reverse engineering and
+tampering. You can integrate it transparently in your build process, so every
+build is optionally optimized and obfuscated.
+
+<h3>Optimizing and protecting applications</h3>
+
+DexGuard is typically applied to <b>application projects</b>. It then
+processes all compiled resources and code, creating an optimized and hardened
+application.
+<p>
+
+<div class="center">
+  <div class="diagram">
+    <div class="distributed">
+      <div class="header">Source code<br/>and resources</div>
+      <div class="header">Compiled code<br/>and resources</div>
+      <div class="header">Optimized and protected</br>application (.apk)</div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="lightgreen box">Android manifest<br/>(text .xml)</div>
+          <div class="right arrow">aapt</div>
+          <div class="green box">Android manifest<br/>(binary .xml)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Java source code<br/>(.java)</div>
+          <div class="right arrow">javac</div>
+          <div class="green box">Java byte code<br/>(.class)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Native source code<br/>(.c, .cpp)</div>
+          <div class="right arrow">clang</div>
+          <div class="green box">Native code<br/>(.so)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Resources<br/>(text .xml)</div>
+          <div class="right arrow">aapt</div>
+          <div class="green box">Resources<br/>(.arsc)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Resource files<br/>(text .xml, .png,...)</div>
+          <div class="right arrow">aapt</div>
+          <div class="green box">Resource files<br/>(binary .xml, .png,...)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Assets<br/>(.txt,...)</div>
+        </div>
+      </div>
+      <div class="right arrow">DexGuard</div>
+      <div class="frame">
+        <div class="col">
+          <div class="darkgreen box">Protected Android manifest</div>
+          <div class="darkgreen box">Protected Dalvik byte code</div>
+          <div class="darkgreen box">Protected native code</div>
+          <div class="darkgreen box">Protected resources</div>
+          <div class="darkgreen box">Protected resource files</div>
+          <div class="darkgreen box">Protected assets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>
+
+DexGuard reads the compiled <b>input</b> (jars, aars, wars, ears, zips, apks,
+or directories, containing Java class files). The input includes any library
+projects and third-party libraries. DexGuard then optimizes and protects the
+code and the resources.
+<p>
+DexGuard packages the processed <b>output</b> in output archives (jars, aars,
+wars, ears, zips, apks, or directories, containing Dalvik bytecode). DexGuard
+can optionally sign and align these archives, removing the need for external
+tools.
+<p>
+DexGuard requires the <b>platform libraries</b> (jars, aars, wars, ears, zips,
+apks, or directories) to properly process the code. For the standard Android
+platform, this is simply <code>android.jar</code>.
+<p>
+<img class="float" src="android_shades.png" width="64" height="64" alt="tip" />
+<i>The DexGuard plugins for Gradle, Ant, Eclipse, and Maven automatically
+set the proper input and the proper libraries for you. You only need to
+consider them if you create your own build process.</i>
+<p class="clear">
+
+<h3>Optimizing and protecting libraries</h3>
+
+You can also apply DexGuard to <b>library projects</b>, if the libraries are
+end-products that you wish to distribute. Libraries are inherently more
+difficult to protect, due to the surface area of their public APIs. Notably,
+all public classes, fields, and methods need to be preserved, so developers
+can actually use the libraries in their own projects. Also, <code>.aar</code>
+files contain all XML resources in their readable text form.
+<p>
+
+<div class="center">
+  <div class="diagram">
+    <div class="distributed">
+      <div class="header">Source code<br/>and resources</div>
+      <div class="header">Compiled code<br/>and resources</div>
+      <div class="header">Optimized and protected</br>library (.aar or .jar)</div>
+    </div>
+  
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="lightgreen box">Android manifest<br/>(text .xml)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Java source code<br/>(.java)</div>
+          <div class="right arrow">javac</div>
+          <div class="green box">Java byte code<br/>(.class)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Native source code<br/>(.c, .cpp)</div>
+          <div class="right arrow">clang</div>
+          <div class="green box">Native code<br/>(.so)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Resources<br/>(text .xml)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Resource files<br/>(text .xml, .png,...)</div>
+        </div>
+        <div class="row">
+          <div class="lightgreen box">Assets<br/>(.txt,...)</div>
+        </div>
+      </div>
+      <div class="right arrow">DexGuard</div>
+      <div class="frame">
+        <div class="col">
+          <div class="lightgreen box">Android manifest<br/>(text .xml)</div>
+          <div class="darkgreen box">Protected Java byte code</div>
+          <div class="darkgreen box">Protected native code</div>
+          <div class="lightgreen box">Resources<br/>(text .xml)</div>
+          <div class="lightgreen box">Resource files<br/>(text .xml, .png,...)</div>
+          <div class="darkgreen box">Protected assets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>
+
+Within these constraints, DexGuard offers the same functionality for library
+projects as for application projects &mdash; optimization, name obfuscation,
+string encryption, asset encryption, etc. Tamper detection on the
+eventual <code>.apk</code> file is an exception, because compiling a library
+into an application is like tampering. You can include tamper detection based
+on the application's certificate hash, if you know the hash in advance.
+<p>
+We recommend to process the final applications as well, if possible. DexGuard
+can then globally optimize and harden all compiled resources and code,
+creating a better overall results.
+<p>
+
+
+<h3>Processing steps</h3>
+
+DexGuard processes the resources and the code in distinct but seamless
+steps.
+<p>
+<div class="center">
+  <div class="diagram">
+    <div class="header">DexGuard processing steps</div>
+    <div class="row">
+      <div class="green box">Compiled<br/>code and resources</div>
+      <div class="right arrow">Shrinking</div>
+      <div class="right arrow">Optimization</div>
+      <div class="right arrow">Obfuscation</br>Encryption</div>
+      <div class="darkgreen box">Protected<br/>code and resources</div>
+    </div>
+  </div>
+</div>
+<p>
+
+<ul>
+<li>The <b>shrinking step</b> detects and removes unused resources, resource
+    files, native libraries, classes, fields, methods, and attributes.</li>
+<li>The <b>optimization step</b> analyzes and optimizes the resources and the
+    bytecode of the methods.</li>
+<li>The <b>obfuscation step</b> renames the remaining resources, resource
+    files, native libraries, classes, fields, and methods using short
+    meaningless names. It obfuscates the bytecode inside specified methods.
+    Finally, it encrypts specified strings, classes, native libraries,
+    resource files, and assets.</li>
+</ul>
+These steps make the code base smaller, more efficient, and harder to
+reverse-engineer. For application projects, a final conversion step also
+translates the Java bytecode (<code>*.class</code>) to Dalvik bytecode
+(<code>classes.dex</code>).
+<p>
+
+<h3>Entry points</h3>
+
+In order to determine which resources and code have to be preserved and which
+resources and code can be discarded or obfuscated, DexGuard has to know
+the <i>entry points</i> to your code. For example, the main entry point for an
+application is the Android manifest. In all processing steps, preserving the
+entry points ensures that they can still be accessed by their original names:
+<ul>
+<li>In the <b>shrinking step</b>, DexGuard starts from these seeds and
+    recursively determines which resources, resoure files, native libraries,
+    classes, fields, and methods are actually used. It then discards all other
+    resources, resoure files, native libraries, classes, fields, and
+    methods.</li>
+
+<li>In the <b>optimization step</b>, DexGuard further optimizes the code,
+    while still preserving all entry points. Unused parameters may be removed;
+    resources, constants, and entire methods may be inlined; classes, fields,
+    and methods may be made private, static, or final, etc.</li>
+
+<li>In the <b>obfuscation step</b>, DexGuard renames resources, resource
+    files, native libraries, classes, fields, and methods that are not entry
+    points.</li>
+</ul>
+<p>
+DexGuard's default configuration takes care of the entry points for Android
+and for a number of common third-party libraries. Otherwise,
+the <a href="usage.html">Usage section</a> of this manual describes the
+necessary <a href="usage.html#keepoptions"><code>-keep</code> options</a> and
+the <a href="examples.html">Examples section</a> provides examples.
+<p>
+<img class="float" src="android_shades.png" width="64" height="64" alt="tip" />
+<i>The DexGuard plugins for Gradle, Ant, Eclipse, and Maven automatically
+set the most common entry points for you. You only need to consider them if
+you create your own build process, or if your code uses reflection, as
+discussed below.</i>
+<p class="clear">
+
+<h3>Reflection</h3>
+
+Reflection and introspection present particular problems for any automatic
+processing of code. Resources, resource files, classes, fields, or methods
+that are accessed or instantiated dynamically (that is, by name) have to be
+specified as entry points too. For example, constructs
+with <code>Resources#getIdentifier</code> or <code>Class.forName()</code> may
+refer to any resource or any class at run-time. It is generally impossible to
+compute which resources or classes have to be preserved (with their original
+names), since the code may create their names dynamically. You therefore have
+to specify them in your DexGuard configuration, with the same
+simple <code>-keep</code> options.
+<p>
+DexGuard will already detect and handle the following cases for you:
+
+<ul>
+<li><code>Class.forName("SomeClass")</code></li>
+<li><code>SomeClass.class</code></li>
+<li><code>SomeClass.class.getField("someField")</code></li>
+<li><code>SomeClass.class.getDeclaredField("someField")</code></li>
+<li><code>SomeClass.class.getMethod("someMethod", null)</code></li>
+<li><code>SomeClass.class.getMethod("someMethod", new Class[] { A.class,... })</code></li>
+<li><code>SomeClass.class.getDeclaredMethod("someMethod", null)</code></li>
+<li><code>SomeClass.class.getDeclaredMethod("someMethod", new Class[] { A.class,... })</code></li>
+<li><code>AtomicIntegerFieldUpdater.newUpdater(SomeClass.class, "someField")</code></li>
+<li><code>AtomicLongFieldUpdater.newUpdater(SomeClass.class, "someField")</code></li>
+<li><code>AtomicReferenceFieldUpdater.newUpdater(SomeClass.class, SomeType.class, "someField")</code></li>
+</ul>
+
+The names of the classes and class members may of course be different, but the
+constructs should be literally the same for DexGuard to recognize them. The
+referenced classes and class members are preserved in the shrinking phase, and
+the string arguments are properly updated in the obfuscation phase.
+<p>
+Furthermore, DexGuard will offer some suggestions if keeping some classes or
+class members appears necessary. For example, DexGuard will note constructs
+like "<code>(SomeClass)Class.forName(variable).newInstance()</code>". These
+might be an indication that the class or interface <code>SomeClass</code>
+and/or its implementations may need to be preserved. You can then adapt your
+configuration accordingly.
+<p>
+For proper results, you should at least be somewhat familiar with the code
+that you are processing. Obfuscating code that performs a lot of reflection
+may require trial and error, especially without the necessary information
+about the internals of the code.
+<p>
+Practically, these are the options that you can specify to preserve elements
+in the various components of your application:
+<p>
+<div class="center">
+  <div class="diagram">
+    <div class="row">
+      <div class="col" style="width: 400px;">
+        <div class="header">Reducing shrinking/optimization/obfuscation</div>
+        <div class="green box">Android manifest<br/>(binary .xml)
+          <div class="note">
+            <a href="usage.html#keepresourcexmlattributenames">-keepresourcexmlattributenames</a>
+          </div>
+        </div>
+        <div class="green box">Java byte code<br/>(.class)
+          <div class="note">
+            <a href="usage.html#keepoverview">-keep</a><br/>
+            <a href="usage.html#keepattributes">-keepattributes</a>
+          </div>
+        </div>
+        <div class="green box">Native code<br/>(.so)
+          <div class="note">
+            <a href="usage.html#keepoverview">-keep</a><br/>
+            <a href="usage.html#keepresourcefiles">-keepresourcefiles</a>
+          </div>
+        </div>
+        <div class="green box">Resources<br/>(.arsc)
+          <div class="note">
+            <a href="usage.html#keepresources">-keepresources</a><br/>
+          </div>
+        </div>
+        <div class="green box">Resource files<br/>(binary .xml, .png,...)
+          <div class="note">
+            <a href="usage.html#keepresourcefiles">-keepresourcefiles</a>
+          </div>
+        </div>
+        <div class="green box">Assets<br/>(.txt,...)
+          <div class="note">
+            <a href="usage.html#keepresourcefiles">-keepresourcefiles</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>
+The options all have arguments to specify which elements exactly need to be
+preserved.
+
+<hr />
+<address>
+Copyright &copy; 2002-2016
+<a target="other" href="http://www.guardsquare.com/">GuardSquare NV</a>.
+</address>
+</body>
+</html>

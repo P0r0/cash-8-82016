@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "772684930007",
+    "project_id": "cashe-be78b"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772684930007:android:89db1e33312dce3b",
+        "android_client_info": {
+          "package_name": "co.tslc.cashe.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772684930007-30okp09sv0dtsd9ougghtg0ab33qri5q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.tslc.cashe.android",
+            "certificate_hash": "B94F6467F69FA068EBB0576BC5E7618F33030C3A"
+          }
+        },
+        {
+          "client_id": "772684930007-0tc6uov4f899bm9jvafv97c3r7l37njq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.tslc.cashe.android",
+            "certificate_hash": "72D2CDD6394E7A5954535D3A2F8C704035225816"
+          }
+        },
+        {
+          "client_id": "772684930007-5n1o5umpkj8kqq0bn29nug41r1tm29cv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXiNUHQBoI8L6y7Z0XqYZCwtHRjoT29Rs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-76140885-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

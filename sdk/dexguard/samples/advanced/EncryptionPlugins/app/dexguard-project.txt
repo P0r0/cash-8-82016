@@ -1,0 +1,26 @@
+# DexGuard's default settings are fine for this sample application.
+# Display some more statistics about the processed code.
+-verbose
+
+# Use custom encryption plugins for all encryptions.
+-pluginjars ../plugins/lib/sample-plugins.jar
+
+# Encrypt the resources.
+-encryptresourcefiles
+
+# Encrypt the assets.
+-encryptassetfiles assets/**
+
+# Encrypt the native libraries.
+-encryptnativelibraries lib/**/libsecret.so
+
+# We can also encrypt the JNI class.
+-encryptclasses com.example.jni.NativeSecret
+
+# Encrypt our secret class.
+-encryptclasses com.example.SecretClass
+
+# Encrypt the message string.
+-encryptstrings class com.example.HelloWorldActivity {
+    private static final java.lang.String MESSAGE;
+}

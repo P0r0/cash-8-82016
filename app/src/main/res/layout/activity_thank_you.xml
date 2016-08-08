@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="co.tslc.cashe.android.ThankYou">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bgArc"
+        android:src="@drawable/bg_arc"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="THANK YOU"
+        android:id="@+id/caption"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp" />
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"
+        android:id="@+id/title_underline"
+        android:layout_below="@+id/caption"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/icon_credited"
+        android:layout_below="@+id/bgArc"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/icon_pay_success"
+        android:layout_marginTop="48dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="PAYMENT NOTIFICATION RECEIVED"
+        android:id="@+id/creditMsg"
+        android:layout_below="@+id/icon_credited"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCasheAmt"
+        android:textSize="48dp"
+        android:textColor="#33ACA1"
+        android:textStyle="bold"
+        android:layout_below="@+id/creditMsg"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibOK"
+        android:background="@drawable/btn_ok"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
+
+</RelativeLayout>

@@ -1,0 +1,58 @@
+// This build script creates aar library files that are processed with DexGuard.
+// It is useful if you want to distribute the library as an end-product.
+//
+// Usage:
+//     gradle -b build-processed.gradle assemble
+
+buildscript {
+    repositories {
+        flatDir { dirs '../../../../lib' } // For the DexGuard plugin.
+        mavenCentral()                     // For the Android plugin.
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath ':dexguard:'
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'dexguard'
+
+android {
+    buildToolsVersion "23.0.2"
+    compileSdkVersion 22
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs         = ['src']
+            resources.srcDirs    = ['src']
+            aidl.srcDirs         = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs          = ['res']
+            assets.srcDirs       = ['assets']
+        }
+
+        instrumentTest.setRoot('tests')
+    }
+
+    buildTypes {
+        debug {
+            //proguardFile getDefaultDexGuardFile('dexguard-library-debug.pro')
+            //proguardFile 'dexguard-project.txt'
+            //proguardFile 'dexguard-project-debug.txt'
+            //proguardFile 'proguard-project.txt'
+        }
+        release {
+            proguardFile getDefaultDexGuardFile('dexguard-library-release-aggressive.pro')
+            proguardFile 'dexguard-project.txt'
+            //proguardFile 'dexguard-project-release.txt'
+            //proguardFile 'proguard-project.txt'
+        }
+    }
+}
+
+// Show DexGuard's console output, so we can see some statistics.
+//afterEvaluate {
+//    dexguardRelease.logging.level = 'INFO'
+//}

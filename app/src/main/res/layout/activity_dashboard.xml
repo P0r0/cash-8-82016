@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        android:id="@+id/container"
+        tools:context="co.tslc.cashe.android.Dashboard">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_arc_subtract"
+            android:id="@+id/bgArc"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:id="@+id/rLayout"
+            android:layout_marginTop="-26dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CASHe YOU CAN GET"
+                android:id="@+id/tvCasheYouCanGet"
+                android:layout_marginTop="30dp"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true" />
+
+            <View
+                android:layout_width="22dp"
+                android:layout_height="1dp"
+                android:background="#FFFFFF"
+                android:id="@+id/underline"
+                android:layout_below="@+id/tvCasheYouCanGet"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvCasheVal"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:layout_below="@+id/tvCasheYouCanGet"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="118dp"
+                android:id="@+id/rlDial">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="MIN"
+                    android:id="@+id/txtMin"
+                    android:textColor="#726F5E"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp"
+                    android:layout_alignTop="@+id/tvDialAmt"
+                    android:layout_alignRight="@+id/minAmt"
+                    android:layout_alignEnd="@+id/minAmt"
+                    android:layout_marginTop="56dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/llDial">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivDialMinus"
+                        android:src="@drawable/icon_minus"
+                        android:layout_marginRight="8dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toLeftOf="@+id/ivDial"
+                        android:layout_toStartOf="@+id/ivDial"
+                        android:layout_gravity="center_vertical" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivDial"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/dial"
+                        android:rotation="-135" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivDialPlus"
+                        android:src="@drawable/icon_plus"
+                        android:layout_marginLeft="8dp"
+                        android:layout_alignBottom="@+id/ivDial"
+                        android:layout_toRightOf="@+id/ivDial"
+                        android:layout_gravity="center_vertical" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="MAX"
+                    android:id="@+id/txtMax"
+                    android:textColor="#726F5E"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp"
+                    android:layout_alignTop="@+id/txtMin"
+                    android:layout_alignLeft="@+id/maxAmt"
+                    android:layout_alignStart="@+id/maxAmt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/minAmt"
+                    android:textColor="#33ACA1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_below="@+id/txtMin"
+                    android:layout_toLeftOf="@+id/llDial"
+                    android:layout_toStartOf="@+id/llDial"
+                    android:layout_marginRight="8dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/maxAmt"
+                    android:textColor="#33ACA1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_below="@+id/txtMax"
+                    android:layout_toRightOf="@+id/llDial"
+                    android:layout_toEndOf="@+id/llDial"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvDialAmt"
+                    android:layout_centerInParent="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+            </RelativeLayout>
+
+            <android.support.v4.widget.NestedScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlDial"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CASHe YOU HAVE USED: "
+                        android:id="@+id/tvUsed"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="32dp"
+                        android:textSize="18sp"
+                        android:visibility="invisible"
+                        android:textColor="#F08916" />
+
+                    <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#0097df"
+                android:id="@+id/action_divider"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+
+                    <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/rlCasheAmt"
+                android:layout_below="@+id/action_divider">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/icon_gyc_01"
+                    android:src="@drawable/icon_cashe_amount"
+                    android:layout_gravity="left"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CASHe AMOUNT"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/icon_gyc_01"
+                    android:textColor="#726F5E" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u20B9"
+                    android:layout_toLeftOf="@+id/casheAmt"
+                    android:textColor="#33ACA1"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/casheAmt"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="#33ACA1"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="18dp"
+                android:id="@+id/rlProcFee"
+                android:layout_below="@+id/rlCasheAmt">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/icon_gyc_022"
+                    android:src="@drawable/icon_processing_fee"
+                    android:layout_gravity="left"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvProcFeeLbl"
+                    android:text="INTEREST"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/icon_gyc_022"
+                    android:textColor="#726F5E"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(-) \u20B9"
+                    android:layout_toLeftOf="@+id/tvProcFee"
+                    android:textColor="#33ACA1"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvProcFee"
+                    android:text=""
+                    android:gravity="right"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="#33ACA1"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="18dp"
+                android:id="@+id/rlOneTime"
+                android:layout_below="@+id/rlProcFee">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/icon_gyc_02"
+                    android:src="@drawable/icon_processing_fee"
+                    android:layout_gravity="left"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvOneTimeFee"
+                    android:text="ONE TIME PROCESSING FEE"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/icon_gyc_02"
+                    android:textColor="#726F5E"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(-) \u20B9"
+                    android:layout_toLeftOf="@+id/oneTimeFee"
+                    android:textColor="#33ACA1"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/oneTimeFee"
+                    android:text=""
+                    android:gravity="right"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="#33ACA1"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#0097df"
+                android:id="@+id/action_divider_light"
+                android:layout_below="@+id/rlOneTime"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="18dp"
+                android:id="@+id/rlInHand"
+                android:layout_below="@+id/action_divider_light">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/icon_gyc_03"
+                    android:src="@drawable/icon_in_hand_amount"
+                    android:layout_gravity="left"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IN HAND AMOUNT"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/icon_gyc_03"
+                    android:textColor="#726F5E"
+                    android:textSize="18dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u20B9"
+                    android:layout_toLeftOf="@+id/inHand"
+                    android:textColor="#33ACA1"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inHand"
+                    android:gravity="right"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="#33ACA1"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#0097df"
+                android:id="@+id/action_divider2"
+                android:layout_below="@+id/rlInHand"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rlUtilized"
+                        android:layout_below="@+id/action_divider"
+                        android:layout_marginTop="24dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ivOutstanding"
+                    android:background="@drawable/icon_outstanding"
+                    android:layout_centerHorizontal="true" />
+
+                        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Kindly pay the outstanding amount."
+                    android:id="@+id/tvOutstanding"
+                    android:lines="5"
+                    android:textAlignment="center"
+                    android:layout_below="@+id/ivOutstanding"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp" />
+
+                        <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ibRepay"
+                            android:background="@drawable/btn_repay"
+                            android:layout_below="@+id/tvOutstanding"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+
+                    <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#726F5E"
+                android:layout_centerHorizontal="true"
+                android:textSize="14dp"
+                android:id="@+id/tvReqBnk"
+                android:text="We will require your bank details for loan disbursement."
+                android:layout_below="@id/action_divider2"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvPromoCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvReqBnk"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
+                        android:textColor="#F18916"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:text="@string/tv_promo_code"
+                        android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:id="@+id/tvPromoCodeApplied"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvReqBnk"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
+                        android:visibility="gone"
+                        android:textColor="#33ACA1"
+                        android:textSize="12sp"
+                        android:layout_gravity="center_horizontal"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ibGetYourCashe"
+                android:background="@drawable/btn_getyourcashe"
+                android:layout_below="@+id/tvPromoCodeApplied"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal" />
+
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="WHY CASHe?"
+                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:id="@+id/btnWhyCASHe"
+                        android:background="@drawable/footer_gradient"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="false"
+                        android:layout_marginTop="24dp"
+                        android:clickable="false" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+        </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_arc"
+        android:id="@+id/bgArc2"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YOU ARE NOT ELIGIBLE FOR\nANY FURTHER LOAN AT THIS POINT."
+        android:id="@+id/tvDefaulted"
+        android:layout_marginTop="48dp"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:id="@+id/dLayout"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/bgArc2"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please repay the following immediately."
+            android:id="@+id/tvRepay"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
+            android:textColor="#FF0000"
+            android:textSize="18sp" />
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/lvHistory"
+            android:layout_below="@+id/tvRepay"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibDefaulted"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_repay"
+            android:layout_marginBottom="8dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

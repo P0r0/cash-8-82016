@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="co.tslc.cashe.android.RepayScreen">
+
+    <ImageView
+        android:id="@+id/bgArc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_arc" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/howToRepay"
+        android:id="@+id/captionTitle"
+        android:gravity="center|center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:id="@+id/captionHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/actionbar_background_color"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/header_toogel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/icon_approved" />
+
+        <ImageView
+            android:id="@+id/header_search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/icon_bank" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/howToRepay"
+            android:id="@+id/caption"
+            android:gravity="center|center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"
+        android:id="@+id/title_underline"
+        android:layout_below="@+id/captionTitle"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"/>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/bgArc">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginTop="10dp"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/captionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="@string/captionInfo"
+            android:textColor="@color/colorText02"
+            android:textSize="18sp"
+            android:visibility="visible" />
+        <View
+            android:id="@+id/separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="10dp"
+            android:background="#D7D7D7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="15dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_below="@+id/bgArc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:text="Account Name:"
+                android:textColor="@color/actionbar_background_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/account_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="ONE CAPITAL Ltd"
+                android:textColor="#D7D7D7"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="15dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bgArc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:text="@string/accountNumber"
+                android:textColor="@color/actionbar_background_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/account_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CASHE06066806"
+                android:textColor="#D7D7D7"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="15dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bgArc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:text="Bank Name:"
+                android:textColor="@color/actionbar_background_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/bank_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kotak mahindra Bank"
+                android:textColor="#D7D7D7"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="15dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bgArc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:text="@string/IFSCCode"
+                android:textColor="@color/actionbar_background_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/ifsc_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KKBK0000848"
+                android:textColor="#D7D7D7"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="15dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bgArc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:text="Mode of Payment:"
+                android:textColor="@color/actionbar_background_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/payment_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEFT Only"
+                android:textColor="#D7D7D7"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="15dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:orientation="horizontal"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bgArc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="5dp"
+                android:text="Account Type:"
+                android:textColor="@color/actionbar_background_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/account_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current"
+                android:textColor="#D7D7D7"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/separator_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="#D7D7D7" />
+
+        <TextView
+            android:id="@+id/bottomtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:text="@string/bottomtext"
+            android:textColor="#D7D7D7"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</ScrollView>
+
+</RelativeLayout>

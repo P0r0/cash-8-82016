@@ -1,0 +1,302 @@
+<resources>
+
+
+    <string name="webApiUrl">https://test.cashe.co.in/</string>
+    <!--<string name="webApiUrl">http://14.140.144.233:8080/ipaybridgeServer/</string>-->
+    <!--<string name="webApiUrl">https://prod.cashe.co.in/</string>-->
+
+    <string name="tv_promo_code"><u>I have a promo code</u></string>
+    <string name="promo_applied">You applied coupon \"%1$s\".</string>
+    <string name="app_name">CASHe</string>
+    <string name="fbAppID">716444111826479</string>
+    <!--<string name="fbAppID">1504033383259198</string>-->
+    <string-array name="person_details_title">
+        <item>Title</item>
+        <item>Mr</item>
+        <item>Ms</item>
+    </string-array>
+    <string-array name="address_proof">
+        <item>Select address proof</item>
+        <item>Aadhar Card</item>
+        <item>Utility Bill</item>
+        <item>Telephone Bill</item>
+        <item>Passport</item>
+        <item>Voter\'s ID</item>
+    </string-array>
+    <string-array name="companies">
+        <item>Aeries</item>
+        <item>Infosys</item>
+        <item>Bank of America</item>
+        <item>Tata Consultancy Services</item>
+    </string-array>
+    <string-array name="qualifications">
+        <item>Select education</item>
+        <item>Undergraduate</item>
+        <item>Graduate</item>
+        <item>Postgraduate</item>
+    </string-array>
+    <string-array name="house_types">
+        <item>Select Accommodation</item>
+        <item>PG</item>
+        <item>Rent</item>
+        <item>Own</item>
+    </string-array>
+    <string-array name="pay_types">
+        <!--<item>Cheque</item>-->
+        <item>NEFT</item>
+    </string-array>
+    <string-array name="designations">
+        <item>Designation</item>
+        <item>Worker</item>
+        <item>Supervisor</item>
+        <item>Manager</item>
+    </string-array>
+    <string-array name="purpose">
+        <item>Select purpose</item>
+        <item>Rent/Deposit</item>
+        <item>Medical</item>
+        <item>Travel</item>
+        <item>Personal</item>
+    </string-array>
+    <string-array name="years">
+        <item>Year</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+        <item>&gt;50</item>
+    </string-array>
+    <string-array name="months">
+        <item>Month</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
+    <string name="blank"></string>
+    <string name="nav_open">Menu</string>
+    <string name="nav_close">Close</string>
+
+    <string-array name="month">
+        <item>Month</item>
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item></string-array>
+
+    <string-array name="day">
+        <item>Day</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+
+    <string-array name="yearBirth">
+        <item>Year</item>
+        <item>1961</item>
+        <item>1962</item>
+        <item>1963</item>
+        <item>1964</item>
+        <item>1965</item>
+        <item>1966</item>
+        <item>1967</item>
+        <item>1968</item>
+        <item>1969</item>
+        <item>1970</item>
+        <item>1971</item>
+        <item>1972</item>
+        <item>1973</item>
+        <item>1974</item>
+        <item>1975</item>
+        <item>1976</item>
+        <item>1977</item>
+        <item>1978</item>
+        <item>1979</item>
+        <item>1980</item>
+        <item>1981</item>
+        <item>1982</item>
+        <item>1983</item>
+        <item>1984</item>
+        <item>1985</item>
+        <item>1986</item>
+        <item>1987</item>
+        <item>1988</item>
+        <item>1989</item>
+        <item>1990</item>
+        <item>1991</item>
+        <item>1992</item>
+        <item>1993</item>
+        <item>1994</item>
+        <item>1995</item>
+        <item>1996</item>
+        <item>1997</item>
+        <item>1998</item>
+    </string-array>
+
+
+    <string-array name="yearWork">
+        <item>Year</item>
+        <item>1956</item>
+        <item>1957</item>
+        <item>1958</item>
+        <item>1959</item>
+        <item>1960</item>
+        <item>1961</item>
+        <item>1962</item>
+        <item>1963</item>
+        <item>1964</item>
+        <item>1965</item>
+        <item>1966</item>
+        <item>1967</item>
+        <item>1968</item>
+        <item>1969</item>
+        <item>1970</item>
+        <item>1971</item>
+        <item>1972</item>
+        <item>1973</item>
+        <item>1974</item>
+        <item>1975</item>
+        <item>1976</item>
+        <item>1977</item>
+        <item>1978</item>
+        <item>1979</item>
+        <item>1980</item>
+        <item>1981</item>
+        <item>1982</item>
+        <item>1983</item>
+        <item>1984</item>
+        <item>1985</item>
+        <item>1986</item>
+        <item>1987</item>
+        <item>1988</item>
+        <item>1989</item>
+        <item>1990</item>
+        <item>1991</item>
+        <item>1992</item>
+        <item>1993</item>
+        <item>1994</item>
+        <item>1995</item>
+        <item>1996</item>
+        <item>1997</item>
+        <item>1998</item>
+        <item>1999</item>
+        <item>2000</item>
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+        <item>2005</item>
+        <item>2006</item>
+        <item>2007</item>
+        <item>2008</item>
+        <item>2009</item>
+        <item>2010</item>
+        <item>2011</item>
+        <item>2012</item>
+        <item>2013</item>
+        <item>2014</item>
+        <item>2015</item>
+        <item>2016</item>
+    </string-array>
+
+    <string name="accountName">Account name:</string>
+    <string name="accountNumber">Account Number:</string>
+    <string name="bankName">Bank name:</string>
+    <string name="IFSCCode">IFSC Code:</string>
+    <string name="bottomtext">Once done update the transaction detail in the repay section</string>
+    <string name="captionInfo"> Transfer the amount due, via NEFT</string>
+    <string name="howToRepay">HOW TO REPAY</string>
+
+
+</resources>

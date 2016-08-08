@@ -1,0 +1,10 @@
+# DexGuard's default settings are fine for this sample application.
+
+# We'll just display some more statistics about the processed code.
+-verbose
+
+# The following classes are serialized as part of the saved state of the app.
+# We preserve their names, to ensure compatibility of this saved state across
+# different obfuscated versions of the app.
+-keep class com.google.android.gms.wallet.fragment.WalletFragmentInitParams
+-keep class com.google.android.gms.wallet.fragment.WalletFragmentOptions

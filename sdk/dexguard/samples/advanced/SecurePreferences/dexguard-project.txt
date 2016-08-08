@@ -1,0 +1,114 @@
+# We'll display some more statistics about the processed code.
+-verbose
+
+-dontwarn com.tozny.crypto.android.AesCbcWithIntegrity
+
+# Encrypt all strings defined in the Secure Preferences library. This prevents e.g.
+# the used encryption algorithm being specified in plain text.
+-encryptstrings class com.securepreferences.**
+
+# Hide some methods involved in the key generation and encryption.
+-accessthroughreflection class android.content.Context {
+    public java.lang.String getPackageName();
+}
+
+-accessthroughreflection class javax.crypto.Cipher {
+  public static javax.crypto.Cipher getInstance(java.lang.String);
+  public static javax.crypto.Cipher getInstance(java.lang.String, java.lang.String);
+  public static javax.crypto.Cipher getInstance(java.lang.String, java.security.Provider);
+  public java.security.Provider getProvider();
+  public java.lang.String getAlgorithm();
+  public int getBlockSize();
+  public int getOutputSize(int);
+  public byte[] getIV();
+  public java.security.AlgorithmParameters getParameters();
+  public javax.crypto.ExemptionMechanism getExemptionMechanism();
+  public void init(int, java.security.Key);
+  public void init(int, java.security.Key, java.security.SecureRandom);
+  public void init(int, java.security.Key, java.security.spec.AlgorithmParameterSpec);
+  public void init(int, java.security.Key, java.security.spec.AlgorithmParameterSpec, java.security.SecureRandom);
+  public void init(int, java.security.Key, java.security.AlgorithmParameters);
+  public void init(int, java.security.Key, java.security.AlgorithmParameters, java.security.SecureRandom);
+  public void init(int, java.security.cert.Certificate);
+  public void init(int, java.security.cert.Certificate, java.security.SecureRandom);
+  public byte[] update(byte[]);
+  public byte[] update(byte[], int, int);
+  public int update(byte[], int, int, byte[]);
+  public int update(byte[], int, int, byte[], int);
+  public int update(java.nio.ByteBuffer, java.nio.ByteBuffer);
+  public byte[] doFinal();
+  public int doFinal(byte[], int);
+  public byte[] doFinal(byte[]);
+  public byte[] doFinal(byte[], int, int);
+  public int doFinal(byte[], int, int, byte[]);
+  public int doFinal(byte[], int, int, byte[], int);
+  public int doFinal(java.nio.ByteBuffer, java.nio.ByteBuffer);
+  public byte[] wrap(java.security.Key);
+  public java.security.Key unwrap(byte[], java.lang.String, int);
+  public static int getMaxAllowedKeyLength(java.lang.String);
+  public static java.security.spec.AlgorithmParameterSpec getMaxAllowedParameterSpec(java.lang.String);
+  public void updateAAD(byte[]);
+  public void updateAAD(byte[], int, int);
+  public void updateAAD(java.nio.ByteBuffer);
+}
+
+-encryptstrings "javax.crypto.Cipher",
+    "doFinal",
+    "getAlgorithm",
+    "getBlockSize",
+    "getExemptionMechanism",
+    "getIV",
+    "getInstance",
+    "getMaxAllowedKeyLength",
+    "getMaxAllowedParameterSpec",
+    "getOutputSize",
+    "getParameters",
+    "getProvider",
+    "init",
+    "unwrap",
+    "update",
+    "updateAAD",
+    "wrap"
+
+-accessthroughreflection class javax.crypto.SecretKeyFactory {
+  public static javax.crypto.SecretKeyFactory getInstance(java.lang.String);
+  public static javax.crypto.SecretKeyFactory getInstance(java.lang.String, java.lang.String);
+  public static javax.crypto.SecretKeyFactory getInstance(java.lang.String, java.security.Provider);
+  public java.security.Provider getProvider();
+  public java.lang.String getAlgorithm();
+  public javax.crypto.SecretKey generateSecret(java.security.spec.KeySpec);
+  public java.security.spec.KeySpec getKeySpec(javax.crypto.SecretKey, java.lang.Class<?>);
+  public javax.crypto.SecretKey translateKey(javax.crypto.SecretKey);
+}
+
+-encryptstrings "javax.crypto.SecretKeyFactory",
+    "generateSecret",
+    "getAlgorithm",
+    "getInstance",
+    "getKeySpec",
+    "getProvider",
+    "translateKey"
+
+-accessthroughreflection class javax.crypto.KeyGenerator {
+  public java.lang.String getAlgorithm();
+  public static javax.crypto.KeyGenerator getInstance(java.lang.String);
+  public static javax.crypto.KeyGenerator getInstance(java.lang.String, java.lang.String);
+  public static javax.crypto.KeyGenerator getInstance(java.lang.String, java.security.Provider);
+  public java.security.Provider getProvider();
+  public void init(java.security.SecureRandom);
+  public void init(java.security.spec.AlgorithmParameterSpec);
+  public void init(java.security.spec.AlgorithmParameterSpec, java.security.SecureRandom);
+  public void init(int);
+  public void init(int, java.security.SecureRandom);
+  public javax.crypto.SecretKey generateKey();
+}
+
+-encryptstrings "javax.crypto.KeyGenerator",
+    "generateKey",
+    "getAlgorithm",
+    "getInstance",
+    "getProvider",
+    "init"
+
+# An extra layer of obfuscation here could be encrypting the entire library class.
+-encryptclasses com.securepreferences.SecurePreferences

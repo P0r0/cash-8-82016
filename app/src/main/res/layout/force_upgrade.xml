@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="co.tslc.cashe.android.RepayScreen">
+
+    <ImageView
+        android:id="@+id/bgArc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_arc" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CASHe"
+        android:id="@+id/captionTitle"
+        android:gravity="center|center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"
+        android:id="@+id/title_underline"
+        android:layout_below="@+id/captionTitle"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/tv_force_upgrade1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CASHe makes life better,\nwhy not make CASHe better!"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"
+        android:textColor="@color/colorText02"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/tv_force_upgrade2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download the latest version of CASHe"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_force_upgrade1"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorTextGray"
+        android:textSize="15sp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_force_upgrade_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="2"
+        android:visibility="gone"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/tv_force_upgrade_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="UPGRADE NOW"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_empty"/>
+
+        <Button
+            android:id="@+id/tv_force_upgrade_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="CANCEL"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_empty"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/tv_force_upgrade_ok2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:text="UPGRADE NOW"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginBottom="25dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_empty"/>
+
+</RelativeLayout>

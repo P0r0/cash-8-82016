@@ -1,0 +1,25 @@
+# DexGuard has some default configuration for SQLCipher. The following rules are
+# suggestions on how to obfuscate your application based on SQLCipher even further.
+
+# We'll display some more statistics about the processed code.
+-verbose
+
+# We encrypt the native libraries provided by SQLCipher. Even though the library is
+# open-source, this helps tying the native library and the Java code together. After
+# this step, one can not simply replace the native library with a customized version.
+#
+# Note: we can't encrypt native libraries referenced from within other native
+#       libraries, e.g. libsqlcipher_android and libstlport_shared
+-encryptnativelibraries lib/**/libdatabase_sqlcipher.so
+
+# We encrypt all strings in the library.
+-encryptstrings class net.sqlcipher.**
+
+# We help hiding the structure of our database by obfuscating the queries.
+-encryptstrings class com.example.EventDataSQLHelper
+
+# We hide our hard-coded database password. In real applications, the password is
+# typically based on a user pincode.
+-encryptstrings class com.example.SQLDemoActivity {
+    java.lang.String DB_PASSWORD;
+}

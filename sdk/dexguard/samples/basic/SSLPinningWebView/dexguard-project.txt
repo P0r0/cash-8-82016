@@ -1,0 +1,23 @@
+# We'll display some more statistics about the processed code.
+-verbose
+
+# For good measure, encrypt the classes related to the SSL pinning.
+-encryptclasses com.guardsquare.dexguard.runtime.**
+-encryptclasses com.example.PinningWebViewActivity$*
+
+# Encrypt our pinned certificate hashes and the url.
+-encryptstrings class com.example.SampleStartActivity {
+    final java.lang.String url;
+    final java.lang.String[] publicKeyHashes;
+}
+
+# Encrypt the intent parameter names.
+-encryptstrings class com.example.PinningWebViewActivity {
+    static final java.lang.String EXTRA_*;
+}
+
+# Some extra strings.
+-encryptstrings "x509-certificate",
+    "X.509",
+    "https",
+    "about:blank"

@@ -1,0 +1,104 @@
+# We'll display some more statistics about the processed code.
+-verbose
+
+# Encrypt all asset files.
+-encryptassetfiles assets/**
+
+# Keep the fields of Gson-serialized classes.
+-keepclassmembers class org.keyczar.AesKey            { <fields>; }
+-keepclassmembers class org.keyczar.DsaPrivateKey     { <fields>; }
+-keepclassmembers class org.keyczar.DsaPublicKey      { <fields>; }
+-keepclassmembers class org.keyczar.HmacKey           { <fields>; }
+-keepclassmembers class org.keyczar.interop.Creator   { <fields>; }
+-keepclassmembers class org.keyczar.interop.Generator { <fields>; }
+-keepclassmembers class org.keyczar.interop.Tester    { <fields>; }
+-keepclassmembers class org.keyczar.KeyMetadata       { <fields>; }
+-keepclassmembers class org.keyczar.KeyVersion        { <fields>; }
+-keepclassmembers class org.keyczar.RsaPrivateKey     { <fields>; }
+-keepclassmembers class org.keyczar.RsaPublicKey      { <fields>; }
+-keepclassmembers class org.keyczar.SessionMaterial   { <fields>; }
+
+# When one of the Gson-serialized fields is an enum we also need to keep it's fields.
+-keepclassmembers class org.keyczar.enums.**          { <fields>; }
+
+# Remove Apache log4j logging.
+-assumenosideeffects class org.apache.log4j.Logger {
+    org.apache.log4j.Logger(java.lang.String);
+    public static org.apache.log4j.Logger getLogger(java.lang.String);
+    public static org.apache.log4j.Logger getLogger(java.lang.Class);
+    public static org.apache.log4j.Logger getRootLogger();
+    public boolean isTraceEnabled();
+    public void trace(java.lang.Object);
+    public void trace(java.lang.Object, java.lang.Throwable);
+}
+
+-assumenosideeffects class org.apache.log4j.Category {
+    org.apache.log4j.Category(java.lang.String);
+    public static org.apache.log4j.Category getInstance(java.lang.Class);
+    public static org.apache.log4j.Category getInstance(java.lang.String);
+    public java.lang.String getName();
+    public org.apache.log4j.Level getEffectiveLevel();
+    public org.apache.log4j.Level getLevel();
+    public org.apache.log4j.Level getPriority();
+    public boolean isDebugEnabled();
+    public boolean isInfoEnabled();
+    public boolean isWarnEnabled();
+    public boolean isErrorEnabled();
+    public boolean isEnabledFor(org.apache.log4j.Priority);
+    void differentiatedLog(org.slf4j.Marker, java.lang.String, int, java.lang.Object, java.lang.Throwable);
+    public void debug(java.lang.Object);
+    public void debug(java.lang.Object, java.lang.Throwable);
+    public void info(java.lang.Object);
+    public void info(java.lang.Object, java.lang.Throwable);
+    public void warn(java.lang.Object);
+    public void warn(java.lang.Object, java.lang.Throwable);
+    public void error(java.lang.Object);
+    public void error(java.lang.Object, java.lang.Throwable);
+    public void fatal(java.lang.Object);
+    public void fatal(java.lang.Object, java.lang.Throwable);
+    public void log(java.lang.String, org.apache.log4j.Priority, java.lang.Object, java.lang.Throwable);
+}
+
+# We use reflection and string encryption to hide access to the javax crypto methods.
+-accessthroughreflection class javax.crypto.Cipher {
+    public static javax.crypto.Cipher getInstance(java.lang.String);
+    public static javax.crypto.Cipher getInstance(java.lang.String, java.lang.String);
+    public static javax.crypto.Cipher getInstance(java.lang.String, java.security.Provider);
+    public int getOutputSize(int);
+    public void init(int, java.security.Key);
+    public void init(int, java.security.Key, java.security.SecureRandom);
+    public void init(int, java.security.Key, java.security.spec.AlgorithmParameterSpec);
+    public void init(int, java.security.Key, java.security.spec.AlgorithmParameterSpec, java.security.SecureRandom);
+    public void init(int, java.security.Key, java.security.AlgorithmParameters);
+    public void init(int, java.security.Key, java.security.AlgorithmParameters, java.security.SecureRandom);
+    public void init(int, java.security.cert.Certificate);
+    public void init(int, java.security.cert.Certificate, java.security.SecureRandom);
+}
+
+-encryptstrings "javax.crypto.Cipher",
+    "getInstance",
+    "init",
+    "javax.crypto.Cipher",
+    "java.security.Provider",
+    "java.security.Key",
+    "java.security.SecureRandom",
+    "java.security.AlgorithmParameters",
+    "java.security.spec.AlgorithmParameterSpec",
+    "java.security.cert.Certificate"
+
+-accessthroughreflection class javax.crypto.Mac {
+    public static javax.crypto.Mac getInstance(java.lang.String);
+    public static javax.crypto.Mac getInstance(java.lang.String, java.lang.String);
+    public static javax.crypto.Mac getInstance(java.lang.String, java.security.Provider);
+    public void init(java.security.Key);
+    public void init(java.security.Key, java.security.spec.AlgorithmParameterSpec);
+}
+
+-encryptstrings "javax.crypto.Mac"
+
+-accessthroughreflection class javax.crypto.spec.IvParameterSpec {
+    public javax.crypto.spec.IvParameterSpec(byte[]);
+    public javax.crypto.spec.IvParameterSpec(byte[], int, int);
+}
+
+-encryptstrings "javax.crypto.spec.IvParameterSpec"

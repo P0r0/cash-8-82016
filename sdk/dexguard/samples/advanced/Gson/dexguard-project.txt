@@ -1,0 +1,25 @@
+# DexGuard's default settings are fine for this sample application,
+# because all the serialized fields are nicely annotated in the source code.
+#
+# Otherwise, we'd need to explicitly preserve the serialized fields, with
+# their original names:
+#
+#-keepclassmembers class com.example.Person,
+#                        com.example.Name,
+#                        com.example.Sex,
+#                        com.example.Address {
+#    <fields>;
+#}
+#
+# We could use wildcards for the class names.
+# "<fields>" already is a wildcard.
+
+# We'll just display some more statistics about the processed code.
+-verbose
+
+# Encrypt the classes that represent domain objects, so their fields and
+# annotations are hidden.
+-encryptclasses com.example.Person,
+                com.example.Name,
+                com.example.Sex,
+                com.example.Address

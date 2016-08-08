@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>HelloWorld</artifactId>
+    <version>1.0.0</version>
+    <packaging>apk</packaging>
+    <name>HelloWorld</name>
+
+    <dependencies>
+        <dependency>
+            <!-- The Android runtime artifacts from Maven Central lack the Java
+                 runtime classes. The plugin will automatically make up for it
+                 by retrieving them from the Android SDK. -->
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.1.1.4</version>
+            <scope>provided</scope>
+
+            <!-- If the environment variable ANDROID_HOME is set, we can also
+                 use the Android runtime straight from the Android SDK.
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>19</version>
+            <scope>system</scope>
+            <systemPath>${env.ANDROID_HOME}/platforms/android-15/android.jar</systemPath>
+            -->
+
+            <!-- The Android runtime artifacts that you can install with
+                 maven-android-sdk-deployer are better, because they are copies
+                 of the original Android runtime stubs from the Android SDK.
+            <groupId>android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.1.1.4</version>
+            <scope>provided</scope>
+            -->
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.guardsquare.dexguard.maven</groupId>
+                    <artifactId>dexguard-maven-plugin</artifactId>
+                    <version>7.1.18</version>
+                    <extensions>true</extensions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.guardsquare.dexguard.maven</groupId>
+                <artifactId>dexguard-maven-plugin</artifactId>
+
+                <configuration>
+                    <sdk>
+                        <platform>19</platform>
+                    </sdk>
+
+                    <apk>
+                        <debug>false</debug>
+                    </apk>
+
+                    <proguard>
+                        <skip>false</skip>
+                        <includeJdkLibs>false</includeJdkLibs>
+                        <outputDirectory>proguard</outputDirectory>
+                        <filterManifest>false</filterManifest>
+                        <filterMavenDescriptor>false</filterMavenDescriptor>
+                        <!-- customFilter>!**.bak,!**.orig</customFilter -->
+                        <config>proguard-project.txt</config>
+                        <!-- options>
+                                <option>-verbose</option>
+                        </options -->
+                    </proguard>
+
+                    <dexguardConfig>dexguard-project.txt</dexguardConfig>
+                    <!-- dexguardConfigs>
+                        <dexguardConfig>/lib/dexguard-debug.pro</dexguardConfig>
+                        <dexguardConfig>dexguard-project.txt</dexguardConfig>
+                    </dexguardConfigs -->
+
+                    <sign>
+                        <debug>auto</debug>
+                        <!-- DexGuard can sign the application with a
+                                 specified keystore instead of the debug keystore.
+                                 We explicitly provide signing information here.
+                                 You can also use the system properties
+                                         android.sign.keystore
+                                         android.sign.storepass
+                                         android.sign.alias
+                                         android.sign.keypass -->
+                         <keystore>../../debug.keystore</keystore>
+                         <storepass>android</storepass>
+                         <alias>AndroidDebugKey</alias>
+                         <keypass>android</keypass>
+                     </sign>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,7 @@
+# DexGuard's default settings are fine for this sample application.
+
+# Display some more statistics about the processed code.
+-verbose
+
+# Apply code obfuscation to the game classes
+-obfuscatecode,high class com.badlogicgames.superjumper.**

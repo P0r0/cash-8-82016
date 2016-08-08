@@ -1,0 +1,10 @@
+# DexGuard's default settings are fine for this sample application.
+
+# Display some more statistics about the processed code.
+-verbose
+
+# Encrypt the native library.
+-encryptnativelibraries lib/**/libsecret.so
+
+# We can also encrypt the JNI class.
+-encryptclasses com.example.jni.NativeSecret

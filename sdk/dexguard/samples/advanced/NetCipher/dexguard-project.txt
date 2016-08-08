@@ -1,0 +1,203 @@
+# We'll display some more statistics about the processed code.
+-verbose
+
+# Hide some notes about classes DexGuard couldn't locate.
+-dontnote android.app.LoadedApk
+-dontnote android.net.ProxyProperties
+-dontnote android.webkit.Network
+-dontnote android.webkit.WebViewCore
+
+# Obfuscate some javax encryption related methods through reflection.
+-accessthroughreflection class javax.crypto.Cipher {
+  public static javax.crypto.Cipher getInstance(java.lang.String);
+  public static javax.crypto.Cipher getInstance(java.lang.String, java.lang.String);
+  public static javax.crypto.Cipher getInstance(java.lang.String, java.security.Provider);
+  public java.security.Provider getProvider();
+  public java.lang.String getAlgorithm();
+  public int getBlockSize();
+  public int getOutputSize(int);
+  public byte[] getIV();
+  public java.security.AlgorithmParameters getParameters();
+  public javax.crypto.ExemptionMechanism getExemptionMechanism();
+  public void init(int, java.security.Key);
+  public void init(int, java.security.Key, java.security.SecureRandom);
+  public void init(int, java.security.Key, java.security.spec.AlgorithmParameterSpec);
+  public void init(int, java.security.Key, java.security.spec.AlgorithmParameterSpec, java.security.SecureRandom);
+  public void init(int, java.security.Key, java.security.AlgorithmParameters);
+  public void init(int, java.security.Key, java.security.AlgorithmParameters, java.security.SecureRandom);
+  public void init(int, java.security.cert.Certificate);
+  public void init(int, java.security.cert.Certificate, java.security.SecureRandom);
+  public byte[] update(byte[]);
+  public byte[] update(byte[], int, int);
+  public int update(byte[], int, int, byte[]);
+  public int update(byte[], int, int, byte[], int);
+  public int update(java.nio.ByteBuffer, java.nio.ByteBuffer);
+  public byte[] doFinal();
+  public int doFinal(byte[], int);
+  public byte[] doFinal(byte[]);
+  public byte[] doFinal(byte[], int, int);
+  public int doFinal(byte[], int, int, byte[]);
+  public int doFinal(byte[], int, int, byte[], int);
+  public int doFinal(java.nio.ByteBuffer, java.nio.ByteBuffer);
+  public byte[] wrap(java.security.Key);
+  public java.security.Key unwrap(byte[], java.lang.String, int);
+  public static int getMaxAllowedKeyLength(java.lang.String);
+  public static java.security.spec.AlgorithmParameterSpec getMaxAllowedParameterSpec(java.lang.String);
+  public void updateAAD(byte[]);
+  public void updateAAD(byte[], int, int);
+  public void updateAAD(java.nio.ByteBuffer);
+}
+
+-encryptstrings "javax.crypto.Cipher",
+    "doFinal",
+    "getAlgorithm",
+    "getBlockSize",
+    "getExemptionMechanism",
+    "getIV",
+    "getInstance",
+    "getMaxAllowedKeyLength",
+    "getMaxAllowedParameterSpec",
+    "getOutputSize",
+    "getParameters",
+    "getProvider",
+    "init",
+    "unwrap",
+    "update",
+    "updateAAD",
+    "wrap"
+
+-accessthroughreflection class javax.crypto.spec.SecretKeySpec {
+  public javax.crypto.spec.SecretKeySpec(byte[], java.lang.String);
+  public javax.crypto.spec.SecretKeySpec(byte[], int, int, java.lang.String);
+  public java.lang.String getAlgorithm();
+  public java.lang.String getFormat();
+  public byte[] getEncoded();
+  public int hashCode();
+}
+
+-encryptstrings "javax.crypto.spec.SecretKeySpec",
+    "getAlgorithm",
+    "getEncoded",
+    "getFormat",
+    "hashCode",
+    "javax.crypto.spec.SecretKeySpec"
+
+-accessthroughreflection class javax.net.ssl.KeyManagerFactory {
+  public static java.lang.String getDefaultAlgorithm();
+  public java.lang.String getAlgorithm();
+  public static javax.net.ssl.KeyManagerFactory getInstance(java.lang.String);
+  public static javax.net.ssl.KeyManagerFactory getInstance(java.lang.String, java.lang.String);
+  public static javax.net.ssl.KeyManagerFactory getInstance(java.lang.String, java.security.Provider);
+  public java.security.Provider getProvider();
+  public void init(java.security.KeyStore, char[]);
+  public void init(javax.net.ssl.ManagerFactoryParameters);
+  public javax.net.ssl.KeyManager[] getKeyManagers();
+}
+
+-encryptstrings "javax.net.ssl.KeyManagerFactory",
+    "getAlgorithm",
+    "getDefaultAlgorithm",
+    "getInstance",
+    "getKeyManagers",
+    "getProvider",
+    "init"
+
+-accessthroughreflection class javax.net.ssl.SSLContext {
+  public static javax.net.ssl.SSLContext getDefault();
+  public static void setDefault(javax.net.ssl.SSLContext);
+  public static javax.net.ssl.SSLContext getInstance(java.lang.String);
+  public static javax.net.ssl.SSLContext getInstance(java.lang.String, java.lang.String);
+  public static javax.net.ssl.SSLContext getInstance(java.lang.String, java.security.Provider);
+  public java.lang.String getProtocol();
+  public java.security.Provider getProvider();
+  public void init(javax.net.ssl.KeyManager[], javax.net.ssl.TrustManager[], java.security.SecureRandom);
+  public javax.net.ssl.SSLSocketFactory getSocketFactory();
+  public javax.net.ssl.SSLServerSocketFactory getServerSocketFactory();
+  public javax.net.ssl.SSLEngine createSSLEngine();
+  public javax.net.ssl.SSLEngine createSSLEngine(java.lang.String, int);
+  public javax.net.ssl.SSLSessionContext getServerSessionContext();
+  public javax.net.ssl.SSLSessionContext getClientSessionContext();
+  public javax.net.ssl.SSLParameters getDefaultSSLParameters();
+  public javax.net.ssl.SSLParameters getSupportedSSLParameters();
+}
+
+-encryptstrings "javax.net.ssl.SSLContext",
+    "createSSLEngine",
+    "getClientSessionContext",
+    "getDefault",
+    "getDefaultSSLParameters",
+    "getInstance",
+    "getProtocol",
+    "getProvider",
+    "getServerSessionContext",
+    "getServerSocketFactory",
+    "getSocketFactory",
+    "getSupportedSSLParameters",
+    "init",
+    "setDefault"
+
+-accessthroughreflection class javax.net.ssl.SSLException {
+  public javax.net.ssl.SSLException(java.lang.String);
+  public javax.net.ssl.SSLException(java.lang.String, java.lang.Throwable);
+  public javax.net.ssl.SSLException(java.lang.Throwable);
+}
+
+-encryptstrings "javax.net.ssl.SSLException"
+
+-accessthroughreflection class javax.net.ssl.SSLSocket {
+  public javax.net.ssl.SSLSession getHandshakeSession();
+  public javax.net.ssl.SSLParameters getSSLParameters();
+  public void setSSLParameters(javax.net.ssl.SSLParameters);
+}
+
+-encryptstrings "javax.net.ssl.SSLSocket",
+    "getHandshakeSession",
+    "getSSLParameters"
+
+-accessthroughreflection class javax.net.ssl.SSLSocketFactory {
+  public javax.net.ssl.SSLSocketFactory();
+  public static javax.net.SocketFactory getDefault();
+  public java.net.Socket createSocket(java.net.Socket, java.io.InputStream, boolean);
+}
+
+-encryptstrings "javax.net.ssl.SSLSocketFactory",
+    "getDefault",
+    "createSocket"
+
+-accessthroughreflection class javax.net.ssl.TrustManagerFactory {
+  public static java.lang.String getDefaultAlgorithm();
+  public java.lang.String getAlgorithm();
+  public static javax.net.ssl.TrustManagerFactory getInstance(java.lang.String);
+  public static javax.net.ssl.TrustManagerFactory getInstance(java.lang.String, java.lang.String);
+  public static javax.net.ssl.TrustManagerFactory getInstance(java.lang.String, java.security.Provider);
+  public java.security.Provider getProvider();
+  public void init(java.security.KeyStore);
+  public void init(javax.net.ssl.ManagerFactoryParameters);
+  public javax.net.ssl.TrustManager[] getTrustManagers();
+}
+
+-encryptstrings "javax.net.ssl.TrustManagerFactory",
+    "getAlgorithm",
+    "getDefaultAlgorithm",
+    "getInstance",
+    "getProvider",
+    "getTrustManagers",
+    "init"
+
+-accessthroughreflection class javax.security.auth.x500.X500Principal {
+  public javax.security.auth.x500.X500Principal(java.lang.String);
+  public javax.security.auth.x500.X500Principal(java.lang.String, java.util.Map<java.lang.String, java.lang.String>);
+  public javax.security.auth.x500.X500Principal(byte[]);
+  public javax.security.auth.x500.X500Principal(java.io.InputStream);
+  public java.lang.String getName();
+  public java.lang.String getName(java.lang.String);
+  public java.lang.String getName(java.lang.String, java.util.Map<java.lang.String, java.lang.String>);
+  public byte[] getEncoded();
+  public java.lang.String toString();
+  public boolean equals(java.lang.Object);
+  public int hashCode();
+}
+
+-encryptstrings "javax.security.auth.x500.X500Principal",
+    "getName",
+    "getEncoded"

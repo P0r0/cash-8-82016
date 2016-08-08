@@ -1,0 +1,84 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/llCellSince"
+    android:orientation="vertical"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Cell Number In Use Since"
+        android:textColor="@color/colorText01"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorText01"
+        android:layout_marginBottom="12dp"
+        android:layout_centerVertical="true" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spnrYearsCell"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        app:ms_multiline="false"
+        app:ms_hint="Years"
+        android:entries="@array/years"
+        app:ms_enableFloatingLabel="true"
+        app:ms_enableErrorLabel="false"
+        app:ms_floatingLabelText="Years"
+        app:ms_baseColor="@color/colorText01"
+        app:ms_highlightColor="@color/colorText02"
+        app:ms_errorColor="@color/colorError"
+        app:ms_thickness="0.25dp"
+        app:ms_hintColor="@color/colorText01"
+        app:ms_arrowColor="@color/colorText01"
+        app:ms_arrowSize="16dp"
+        app:ms_alignLabels="false"
+        app:ms_floatingLabelColor="@color/colorText01"
+        app:ms_typeface="fonts/HUM521N_1.TTF"
+        android:layout_marginLeft="8dp"
+        android:layout_weight=".40" />
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spnrMonthsCell"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        app:ms_multiline="false"
+        app:ms_hint="Months"
+        android:entries="@array/months"
+        app:ms_enableFloatingLabel="true"
+        app:ms_enableErrorLabel="false"
+        app:ms_floatingLabelText="Months"
+        app:ms_baseColor="@color/colorText01"
+        app:ms_highlightColor="@color/colorText02"
+        app:ms_errorColor="@color/colorError"
+        app:ms_thickness="0.25dp"
+        app:ms_hintColor="@color/colorText01"
+        app:ms_arrowColor="@color/colorText01"
+        app:ms_arrowSize="16dp"
+        app:ms_alignLabels="false"
+        app:ms_floatingLabelColor="@color/colorText01"
+        app:ms_typeface="fonts/HUM521N_1.TTF"
+        android:layout_marginLeft="16dp"
+        android:layout_weight=".40" />
+
+    </LinearLayout>
+
+</LinearLayout>

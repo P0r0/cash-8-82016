@@ -1,0 +1,7 @@
+# DexGuard's default settings are fine for this sample application.
+
+# Display some more statistics about the processed code.
+-verbose
+
+# Encrypt all asset files. In this project, it's a single message file.
+-encryptassetfiles assets/**

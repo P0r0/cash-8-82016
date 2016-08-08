@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFFFF">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="co.tslc.cashe.android.IFSCSearch">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivHdr"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_arc"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IFSC"
+        android:id="@+id/caption"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"
+        android:id="@+id/title_underline"
+        android:layout_below="@+id/caption"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="Bank"
+        android:id="@+id/tvBank"
+        android:layout_below="@+id/ivHdr"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp">
+    </TextView>
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/actvBank"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+        android:capitalize="characters"
+        android:inputType="textCapCharacters"
+        android:layout_below="@+id/tvBank"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="State"
+        android:id="@+id/tvState"
+        android:layout_below="@+id/actvBank"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp">
+    </TextView>
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/actvState"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+        android:capitalize="characters"
+        android:inputType="textCapCharacters"
+        android:layout_below="@+id/tvState"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="City"
+        android:id="@+id/tvCity"
+        android:layout_below="@+id/actvState"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:visibility="gone">
+    </TextView>
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/actvCity"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+        android:capitalize="characters"
+        android:inputType="textCapCharacters"
+        android:layout_below="@+id/tvCity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="Branch"
+        android:id="@+id/tvBranch"
+        android:layout_below="@+id/actvCity"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:visibility="gone">
+    </TextView>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnrBranch"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/spnr_style"
+        android:layout_below="@+id/tvBranch"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="14dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvIFSC"
+        android:layout_below="@+id/spnrBranch"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:textColor="#33ACA1"
+        android:textStyle="bold"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibDone"
+        android:background="@drawable/btn_done"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvIFSC"
+        android:layout_marginTop="14dp" />
+
+</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

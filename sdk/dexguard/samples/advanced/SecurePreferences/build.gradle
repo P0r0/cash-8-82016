@@ -1,0 +1,75 @@
+buildscript {
+    repositories {
+        flatDir { dirs '../../../lib' } // For the DexGuard plugin.
+        jcenter()                       // For the Android plugin.
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath ':dexguard:'
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'dexguard'
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 21
+        versionCode 3
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile     file('../../debug.keystore')
+                storePassword 'android'
+                keyAlias      'androiddebugkey'
+                keyPassword   'android'
+        }
+    }
+
+    defaultConfig {
+        signingConfig signingConfigs.debug
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['assets']
+            res.srcDirs = ['res']
+            aidl.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            java.srcDirs = ['src']
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+    }
+
+    buildTypes {
+        debug {
+            proguardFile getDefaultDexGuardFile('dexguard-debug.pro')
+            proguardFile 'dexguard-project.txt'
+            //proguardFile 'dexguard-project-debug.txt'
+            proguardFile 'proguard-project.txt'
+        }
+        release {
+            proguardFile getDefaultDexGuardFile('dexguard-release.pro')
+            proguardFile 'dexguard-project.txt'
+            //proguardFile 'dexguard-project-release.txt'
+            proguardFile 'proguard-project.txt'
+        }
+    }
+}
+
+// Show DexGuard's console output, so we can see some statistics.
+//afterEvaluate {
+//    dexguardRelease.logging.level = 'INFO'
+//}

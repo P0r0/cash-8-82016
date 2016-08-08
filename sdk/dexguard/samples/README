@@ -1,0 +1,117 @@
+The 'basic' directory contains a number of samples that illustrate the use of
+DexGuard. The first samples are essentially the same HelloWorld activity,
+demonstrating different layers of obfuscation in subsequent steps:
+
+- HelloWorld       : A simple application, set up to be processed by DexGuard.
+- StringEncryption : Let DexGuard encrypt the "Hello world!" string.
+- ClassEncryption  : Let DexGuard encrypt the SecretClass class.
+- AssetEncryption  : Let DexGuard encrypt an asset file.
+- AssetEncryptionLibrary:
+                     Let DexGuard encrypt asset files in a multi-project
+                     build, i.e. containing a library and an application.
+- ResourceEncryption:
+                     Let DexGuard encrypt a layout resource file.
+- NativeLibraryEncryption:
+                     Let DexGuard encrypt a native library.
+- NativeLibraryInLibraryProject:
+                     Let DexGuard obfuscate a native library in a library
+                     project.
+- Reflection       : Let DexGuard introduce reflection for some API calls,
+                     and then further encrypt them.
+- CodeObfuscation  : Let DexGuard obfuscate the code of the activity class.
+- LoggingRemoval   : Let DexGuard remove logging code for you.
+- Multidex         : Let DexGuard split your code into smaller dex files,
+                     with eager loading by the multidex support of the
+                     Android runtime.
+- DexSplitting     : Let DexGuard split your code into smaller dex files,
+                     with lazy loading by the application itself.
+- Maven            : A simple application, set up to be processed with
+                     DexGuard's Maven plugin.
+
+The 'basic' directory additionally contains samples that show how to harden
+applications against dynamic analysis.
+
+- EnvironmentCheck : Detect whether the application is debuggable, whether it
+                     is running in an emulator, and whether the device is
+                     rooted, and let DexGuard harden the checks..
+- TamperDetection  : Detect whether the apk archive has been tampered with,
+                     after it has been created and signed by DexGuard.
+- SSLPinning       : Make sure the application connects to the intended server
+                     with SSL pinning.
+- WebView          : Let DexGuard encrypt the resources of a web view.
+- SSLPinningWebView: An example that demonstrates how to implement SSL pinning
+                     for your webviews, in two different ways.
+
+The 'advanced' directory contains a number of samples that show how to protect
+libraries that are common in real-world applications:
+
+- MarketDetection  : Detect whether the application originates from the Google
+                     Play market, and let DexGuard harden it.
+- MarketLicensing  : The sample of the License Verification Library for the
+                     Google Play market, with a DexGuard configuration to
+                     harden it against hackers.
+- MarketBilling    : The samples of the Market Billing Library (V2 and V3) for
+                     the Google Play Market, with DexGuard configurations
+                     to harden them.
+- MarketExpansion  : The sample of the APK Expansion Library for the
+                     Google Play market, again with a DexGuard configuration
+                     to harden it.
+- AmazonIAP        : The sample of the In-App Purchasing library for the
+                     Amazon market, again with a DexGuard configuration
+                     to harden it. The folder contains a sample for both thei
+                     old (v1) and the new (v2) SDK.
+- GooglePlayServices/AdMob:
+                     A sample that uses Google's AdMob advertisement library,
+                     again with a DexGuard configuration to harden it.
+- GooglePlayServices/Wallet:
+                     A sample that uses Google's Wallet payment library,
+                     again with a DexGuard configuration to harden it.
+- Dagger           : A sample making use of Square's Dagger 1.x dependency
+                     injection library. The included DexGuard configuration
+                     explains how to get your Dagger project working correctly
+                     with DexGuard.
+- Gson             : This sample shows how to use DexGuard with Gson
+                     (de)serialized objects. The included configuration
+                     additionally shows how to encrypt the model classes.
+- SecurePreferences: A sample making use of the SecurePreferences library to
+                     read and write encrypted data to the SharedPreferences.
+                     The DexGuard configuration further obfuscates the library.
+- SQLCipher        : This sample uses the SQLCipher library from the Guardiani
+                     Project providing an encrypted Sqlite database. The
+                     DexGuard configuration shows how to further harden it.
+- NetCipher        : Guardian Project's NetCipher library is used in this sample
+                     to enable routing traffic through Tor or over a proxy. The
+                     included DexGuard configuration file shows how to further
+                     harden applications using the library.
+- IOCipher         : A sample making use of the IOCipher library from the
+                     Guardian Project. The DexGuard configuration shows how to
+                     further harden it.
+- KeyCzar          : This sample makes use of Google's KeyCzar encryption helper
+                     library. The included DexGuard configuration contains extra
+                     rules to remove logging and obfuscate the crypto methods.
+- Conceal          : A sample using Facebook's Conceal library. A DexGuard
+                     configuration is included to further harden the
+                     application.
+- Cordova          : The sample from the Cordova framework, with DexGuard
+                     encrypting the resources.
+- EncryptionPlugins: A sample that illustrates how to apply the sample custom
+                     encryption plugins from the 'plugins' directory.
+- libGDX/SuperJumperDemo:
+                     A sample making use of the libGDX library. The included
+                     configuration additionally shows how to obfuscate
+                     the code of the application classes.
+
+
+You can build and run the applications with Gradle, Ant, Android Studio,
+Eclipse, and Maven, with their respective plugins.
+
+1) Make sure the property sdk.dir is set in the file local.properties.
+2) Type the following to build with Gradle:
+       gradle installRelease
+   Alternatively, with Ant:
+       ant release install
+3) Try the HelloWorld application on your device or in the emulator.
+
+You can see the differences in configuration in the dexguard-project.txt files.
+
+Copyright (c) 2002-2013 Saikoa / Itsana BVBA

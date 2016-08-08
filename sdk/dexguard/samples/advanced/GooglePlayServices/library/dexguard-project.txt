@@ -1,0 +1,16 @@
+# We only need this configuration should we process the library as such,
+# with build-processed.gradle, before it is integrated in an application.
+
+-verbose
+
+-dontoptimize
+
+# With the default configuration dexguard-library-release-aggressive.pro,
+# we need to explicitly keep all public API. This means that we can
+# obfuscate the classes in all internal packages.
+-keep public class !**.internal.**, com.google.** {
+    public protected *;
+}
+
+# We can repackage all obfuscated classes in a new internal package.
+-repackageclasses com.google.internal

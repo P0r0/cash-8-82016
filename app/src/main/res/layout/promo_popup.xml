@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_promo_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_weight="1"
+        android:color="@color/colorText01"
+        android:labelFor="@+id/etFullName"
+        >
+
+    <EditText
+        android:id="@+id/et_promo_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter promo code"
+        android:inputType="textCapWords"
+        android:maxLength="15"
+        android:singleLine="true"
+        android:textColor="@color/colorTextBlack" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/tv_promo_msg"
+        android:textColor="@android:color/holo_red_light"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/ll_promo_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <TextView
+        android:id="@+id/tv_promo_ok"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+            android:gravity="center_horizontal"
+        android:text="OK"
+        android:textColor="#F18916"/>
+        <TextView
+            android:id="@+id/tv_promo_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="CANCEL"
+            android:textColor="#F18916"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_promo_proceed"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="OK"
+        android:layout_marginTop="10dp"
+        android:textColor="#F18916"></TextView>
+
+
+</LinearLayout>

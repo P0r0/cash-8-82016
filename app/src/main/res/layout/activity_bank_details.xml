@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:background="#FFFFFF"
+    tools:context="co.tslc.cashe.android.BankDetails">
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bgArc"
+        android:src="@drawable/bg_arc"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BANK DETAILS"
+            android:id="@+id/caption"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/caption" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:background="#FFFFFF"
+            android:id="@+id/title_underline"
+            android:layout_below="@+id/caption"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/actvBankWrapper"
+            android:labelFor="@+id/actvBank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:color="@color/colorText02"
+            android:layout_below="@+id/bgArc"
+            android:layout_marginTop="@dimen/margin_vertical">
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/actvBank"
+            android:layout_below="@+id/tv"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ'. "
+            android:capitalize="characters"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:maxLength="128"
+            android:hint="Bank"
+            android:inputType="textCapCharacters"
+            android:background="@drawable/et_style_01"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/accNumWrapper"
+            android:labelFor="@+id/etAccNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/actvBankWrapper"
+            android:color="@color/colorText02"
+            android:layout_marginTop="@dimen/margin_vertical">
+        <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etAccNum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+            android:hint="Account Number"
+        android:capitalize="characters"
+        android:inputType="textCapCharacters"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+        android:layout_below="@+id/tvAccNum"
+        android:layout_marginTop="14dp"
+        android:maxLength="16"
+            android:background="@drawable/et_style_01"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+            android:layout_marginRight="8dp"
+        android:layout_below="@+id/accNumWrapper"
+            android:orientation="horizontal">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/ifscWrapper"
+                android:labelFor="@+id/etIFSC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:color="@color/colorText02"
+                android:layout_marginTop="@dimen/margin_vertical"
+                android:layout_weight="0.96">
+
+            <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etIFSC"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+            android:capitalize="characters"
+            android:inputType="textCapCharacters"
+            android:layout_marginLeft="8dp"
+            android:singleLine="true"
+            android:layout_marginTop="14dp"
+            android:maxLength="11"
+            android:layout_weight="0.96"
+                android:hint="IFSC"
+                android:background="@drawable/et_style_01"/>
+            </android.support.design.widget.TextInputLayout>
+        <Button
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:text="Find"
+            android:textColor="#33ACA1"
+            android:background="#FFFFFF"
+            android:singleLine="true"
+            android:id="@+id/btnFind"
+            android:layout_marginTop="14dp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibCASHeIt"
+        android:background="@drawable/btn_casheit"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/caption"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>

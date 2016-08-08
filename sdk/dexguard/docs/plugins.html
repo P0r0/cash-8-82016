@@ -1,0 +1,342 @@
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="content-style-type" content="text/css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>DexGuard Encryption Plugins</title>
+</head>
+<body>
+
+<script type="text/javascript" language="JavaScript">
+<!--
+if (window.self==window.top)
+  document.write('<a target="_top" href="index.html#plugins.html" class="largebutton">DexGuard index</a>')
+//-->
+</script>
+<noscript>
+<a class="largebutton" target="_top"  href="index.html#plugins.html">DexGuard index</a>
+</noscript>
+
+<h2>Encryption Plugins</h2>
+
+DexGuard can encrypt sensitive resources in your application with polymorphic
+code. With DexGuard's plugin framework, you can replace the standard
+encryption and decryption algorithms with your own.
+<p>
+With custom encryption algorithms, you can raise the bar for attackers who try
+to reverse engineer and modify your applications. The greater the variation in
+the obfuscation of your applications, the harder it becomes for attackers and
+reverse engineering tools to recognize patterns and decipher the encryption in
+obfuscated code.
+<p>
+You can write your own encryption algorithms for DexGuard's plugin framework
+in Java, without the need to know Java bytecode or Dalvik bytecode. There are
+three simple steps:
+<ol>
+<li><a href="#implementation">Implement your own encryption plugin class</a>,
+    based on the <a href="#dependencies">DexGuard API</a>.</li>
+<li>Compile your plugin code and package it in a jar file.</li>
+<li><a href="#configuration">Apply the plugin in your DexGuard build</a>.</li>
+</ol>
+
+
+<h3 id="dependencies">Dependencies for custom encryption plugins</h3>
+
+DexGuard comes with a Java-based API for the development of custom DexGuard
+encryption algorithms. The DexGuard API classes require at least a Java 1.6
+compiler.
+<p>
+You can find the DexGuard plugin API in the DexGuard distribution at
+<pre>
+lib/dexguard-api.jar
+</pre>
+<p>
+It is self-contained, and does not depend on any libraries, other than the Java
+Standard Library. Notably, it does not depend on <code>lib/dexguard.jar</code>.
+<p>
+You may use other libraries, such as cryptographic frameworks, in your
+algorithm implementation. Note however that all classes used by your
+decryption code will also end up in your obfuscated application, which might
+run in another runtime environment (e.g., Android). If you should use
+third-party libraries, also verify that their license allows redistribution
+and modification of their code.
+
+
+<h3 id="implementation">Implementing a custom encryption plugin</h3>
+
+<p>
+DexGuard's plugin API provides an abstract encryption class for each type of
+resource that can be encrypted:
+<p>
+<table cellpadding="5">
+<tr>
+    <th>Resource type</th>
+    <th>Plugin API abstract class</th>
+</tr>
+
+<tr>
+    <td>String</td>
+    <td><code>com.guardsquare.dexguard.encryption.string.StringEncryptionPlugin</code></td>
+</tr>
+<tr>
+    <td>Native library</td>
+    <td><code>com.guardsquare.dexguard.encryption.nativelibrary.NativeLibraryEncryptionPlugin</code></td>
+</tr>
+<tr>
+    <td>Asset</td>
+    <td><code>com.guardsquare.dexguard.encryption.asset.AssetEncryptionPlugin</code></td>
+</tr>
+<tr>
+    <td>Android resource</td>
+    <td><code>com.guardsquare.dexguard.encryption.resource.ResourceEncryptionPlugin</code></td>
+</tr>
+</table>
+<p>
+Each encryption class has an encryption and decryption method, taking either
+an <code>InputStream</code>, <code>OutputStream</code>, a byte array
+or <code>String</code> as input. You can implement a cryptographic algorithm
+for use with DexGuard by extending the appropriate encryption class and
+implementing the corresponding encrypt/decrypt methods. The
+<a target="_parent" href="plugins/index.html">DexGuard API Javadoc</a> provides a detailed
+description of each of the encryption classes.
+<p>
+The following is a simple example of an asset encryption plugin, encrypting
+assets by applying an exclusive or operation on all bytes, with a given
+constant:
+<pre>
+public class SimpleConstantXorAssetEncryptionPlugin
+extends      AssetEncryptionPlugin&lt;Void, Void&gt; {
+
+    private static final byte OBFUSCATION_CONSTANT = 76;
+
+    public OutputStream encryptAsset(OutputStream outputStream,
+                                     Void         sharedEncryptionKey,
+                                     Void         encryptionKey) throws IOException {
+        return new XorOutputStream(outputStream, OBFUSCATION_CONSTANT);
+    }
+
+    public InputStream decryptAsset(InputStream inputStream,
+                                    Void        sharedEncryptionKey,
+                                    Void        encryptionKey) throws IOException {
+        return new XorInputStream(inputStream, OBFUSCATION_CONSTANT);
+    }
+}
+</pre>
+<p>
+During the build process of your application, DexGuard will call
+the <code>encrypt</code> method of your plugin to encrypt your application's
+resources, before packing them into the output jar or apk.
+The <code>decrypt</code> method of your plugin will be obfuscated and copied
+into the application code, in the places where encrypted resources are loaded.
+Therefore, the decryption code needs to be compatible with the target
+environment of the application (e.g. Android).
+
+
+<h3 id="configuration">Applying the custom encryption plugin to your
+    application</h3>
+
+Once your encryption implementation is finished, you can compile it and bundle
+it in a jar file. You can then instruct DexGuard to use it, by adding the
+following line to your DexGuard configuration:
+<pre>
+<a href="usage.html#pluginjars">-pluginjars</a> myCrypthographicPlugin.jar
+</pre>
+<p>
+Then apply encryption to the various resource types as usual:
+<pre>
+<a href="usage.html#encryptstrings">-encryptstrings        [string_filter]</a>
+<a href="usage.html#encryptnativelibraries">-encryptnativelibaries [file_filter]</a>
+<a href="usage.html#encryptassetfiles">-encryptassetfiles     [file_filter]</a>
+<a href="usage.html#encryptresourcefiles">-encryptresourcefiles  [file_filter]</a>
+</pre>
+<p>
+DexGuard automatically picks up the plugin implementations in your plugin jar.
+If it finds multiple implementations, it will randomly choose an algorithm for
+each resource. The more implementations you can provide, the harder it will
+generally become to reverse engineer obfuscated applications. For Android
+resources (files in res/XXX), only one algorithm is supported per application.
+<p>
+If, for some resource type, DexGuard doesn't find a plugin implementation in
+your jar, it will fall back to the default built-in algorithms.
+
+
+<h3 id="parameters">Parameterizing the encryption</h3>
+
+To increase the strength of your encryption, you can add variation to the
+encryption, by parameterizing the algorithm with encryption keys. The
+approach is slightly different depending on the resource to be encrypted.
+
+<h4>Android Resources</h4>
+
+For Android resources, the <code>encryptResource()</code> and
+<code>decryptResource()</code> methods take resource-specific parameters
+(resource ID, file name, file size) that can be used to parameterize the
+algorithm. As a very simple example, you could use the resource ID as a
+cryptographic key for our XOR-based encryption algorithm:
+
+<pre>
+    public byte[] encryptResource(byte[] bytes,
+                                  int    resourceId,
+                                  String fileName) {
+        return XorUtil.xor(bytes, resourceId);
+    }
+
+    public byte[] decryptResource(byte[] encryptedBytes,
+                                  int    resourceId,
+                                  String fileName) {
+        return XorUtil.xor(encryptedBytes, resourceId);
+    }
+</pre>
+
+<h4>Assets and native libraries</h4>
+
+Encryption keys are modeled using Java classes. The contents of an encryption
+key class are specific to the algorithm it is used with; it can range from a
+simple byte to a complex combination of primitives, arrays and other data.
+Note that there are some restrictions on its contents; please refer to the
+Javadoc of the encryption plugin classes for more details.
+<p>
+For assets and native libraries, there are two types of encryption
+keys:
+<ul>
+<li>Shared encryption keys: a key that is shared by a group of resources.
+    DexGuard automatically groups resources for key sharing,  based on
+    internal heuristics.
+</li>
+<li>Resource-specific encryption keys: a key that is specific to one individual
+    asset or native library.
+</li>
+</ul>
+<p>
+Encryption key classes are linked to an encryption plugin via two generic type
+parameters of the plugin class. Key instances are created and
+initialized for a given (set of) resource(s) in the
+<code>create*EncryptionKey</code> methods of the plugin.
+These methods receive additional contextual information about the encrypted
+resource(s), that can be used to derive a value for the encryption key.
+<p>
+In the following example, the encryption keys for a simple asset plugin
+are defined by a simple byte; their value is derived from the group seed and
+the asset file size:
+<pre>
+public class SimpleXorAssetEncryptionPlugin
+implements   AssetEncryptionPlugin&lt;SharedEncryptionKey, EncryptionKey&gt; {
+
+    public SharedEncryptionKey createAssetSharedEncryptionKey(long groupSeed,
+                                                              Set  assetFileNames) {
+        SharedEncryptionKey key = new SharedEncryptionKey();
+        key.parameter = (byte) groupSeed;
+        return key;
+    }
+
+    public EncryptionKey createAssetEncryptionKey(SharedEncryptionKey sharedEncryptionKey,
+                                                  long                seed,
+                                                  String              assetFileName,
+                                                  long                approximateFileSize) {
+        EncryptionKey key = new EncryptionKey();
+        key.parameter = (byte) assetFileSize;
+        return key;
+    }
+
+    public static class SharedEncryptionKey {
+        public byte parameter;
+    }
+
+    public static class EncryptionKey {
+        public byte parameter;
+    }
+}
+</pre>
+<p>
+The encryption keys are passed as parameters to
+the <code>encrypt*</code> and <code>decrypt*</code> methods, that can use them
+to properly configure the encryption/decryption algorithm.
+<p>
+Although not required, you should preferably use both encryption keys to
+initialize the cryptographic algorithm, for maximal security.
+<p>
+Continuing with the previous example, we can now combine both bytes of the
+shared and individual asset encryption key in the encrypt and decrypt method,
+and use the resulting value in a XOR operation:
+
+<pre>
+    public OutputStream encryptAsset(OutputStream        outputStream,
+                                     SharedEncryptionKey sharedEncryptionKey,
+                                     EncryptionKey       encryptionKey ) throws IOException {
+        byte combinedXorValue =
+            (byte)(sharedEncryptionKey.parameter ^ encryptionKey.parameter);
+
+        return new XorOutputStream(outputStream, combinedXorValue);
+    }
+
+    public InputStream decryptAsset(InputStream         inputStream,
+                                    SharedEncryptionKey sharedEncryptionKey,
+                                    EncryptionKey       encryptionKey ) throws IOException {
+        byte combinedXorValue =
+            (byte) (sharedEncryptionKey.parameter ^ encryptionKey.parameter);
+
+        return new XorInputStream(inputStream, combinedXorValue);
+    }
+</pre>
+<p>
+During the build process, DexGuard will generate the encryption keys
+by calling the key creation methods for each resource, and pass these
+keys to the <code>encrypt</code> method, together with the data to be
+encrypted. At the same time, it will store all encryption keys in the
+obfuscated application, and make sure the <code>decrypt</code> method, within
+the application, gets called with the correct encryption keys for each
+encrypted resource.
+
+<h4>Strings</h4>
+
+For Strings, there is no distinction between the individual encryption key and
+the encrypted data. For a given String and shared encryption key, the
+encryption algorithm generates a single output, the encrypted string data.
+The contents of the encrypted data can be chosen freely, within the limits of
+the framework &mdash; see <a name="#limitations">Limitations</a>.
+<p>
+The decryption method receives the shared encryption key, together with the
+encrypted string data, and decrypts it back to the original String.
+<p>
+The following snippet shows a simple example of a string encryption that XORs
+the character data of the String:
+<pre>
+public class SimpleStringEncryptionPlugin
+extends      StringEncryptionPlugin&lt;Void, SimpleStringEncryptionPlugin.EncryptedString&gt; {
+
+    private static final char OBFUSCATION_CONSTANT = 76;
+
+    public EncryptedString encryptString(Void   sharedEncryptionKey,
+                                         long   stringSeed,
+                                         String string         ) {
+        EncryptedString encryptedString = new EncryptedString();
+        encryptedString.data = XorUtil.xor( string.toCharArray(), OBFUSCATION_CONSTANT);
+        return encryptedString;
+    }
+
+    public String decryptString(Void            sharedEncryptionKey,
+                                EncryptedString encryptedString) {
+        return new String(XorUtil.xor(encryptedString.data, OBFUSCATION_CONSTANT));
+    }
+
+    public static class EncryptedString {
+        char[] data;
+    }
+}
+</pre>
+
+
+<h3 id="limitations">Limitations</h3>
+
+Some restrictions apply on the implementations of encryption plugin and
+encryption key classes. Please refer to the
+<a target="_parent" href="plugins/index.html">DexGuard API Javadoc</a> for further details.
+
+<hr/>
+<address>
+Copyright &copy; 2002-2016
+<a target="other" href="http://www.guardsquare.com/">GuardSquare NV</a>.
+</address>
+</body>
+</html>

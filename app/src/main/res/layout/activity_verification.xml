@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFFFF"
+    tools:context="co.tslc.cashe.android.Verification">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivHdr"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_arc"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VERIFICATION"
+        android:id="@+id/caption"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_marginTop="4dp" />
+
+    <View
+        android:layout_width="22dp"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"
+        android:id="@+id/underline"
+        android:layout_below="@+id/caption"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="APPROVAL WILL BE DONE BY"
+        android:id="@+id/tvDoneBy"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/underline"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="-32dp"
+        android:layout_below="@+id/ivHdr"
+        android:id="@+id/llDate"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/ivDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/verification_date" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/ivHdr"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/llProcDate">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00.00.00"
+            android:id="@+id/tvDate"
+            android:textColor="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            android:layout_marginTop="14dp" />
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:background="#FFFFFF"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00.00.00"
+            android:id="@+id/tvTime"
+            android:textColor="#FFFFFF"
+            android:layout_below="@+id/ivHdr"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal|top"
+            android:gravity="center_horizontal"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llDate"
+        android:id="@+id/scrollView"
+        android:background="#FFFFFF">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/llBody"
+                android:layout_gravity="center_horizontal">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/llDate"
+                    android:layout_marginTop="26dp"
+                    android:id="@+id/llIcons">
+
+                    <!--<ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivProcessing"
+                        android:background="@drawable/icon_processing_grey"
+                        android:layout_centerInParent="true" />-->
+
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivProcessing"
+                        android:layout_centerInParent="true" />
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="1dp"
+                        android:background="#E3E2DF"
+                        android:id="@+id/divider_left"
+                        android:layout_toLeftOf="@+id/ivProcessing"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_centerVertical="true" />
+
+                    <!--<pl.droidsonroids.gif.GifImageView
+                        android:layout_width="40dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/divider_left"
+                        android:background="@drawable/bar_12_cashe_02"
+                        android:layout_toLeftOf="@+id/ivProcessing"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_centerVertical="true" />-->
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="1dp"
+                        android:background="#E3E2DF"
+                        android:id="@+id/divider_right"
+                        android:layout_toRightOf="@+id/ivProcessing"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_centerVertical="true" />
+
+                    <!--<pl.droidsonroids.gif.GifImageView
+                        android:layout_width="40dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/divider_right"
+                        android:background="@drawable/bar_12_cashe_02"
+                        android:layout_toRightOf="@+id/ivProcessing"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_centerVertical="true" />-->
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivDocuments"
+                        android:background="@drawable/icon_documents_grey"
+                        android:layout_toLeftOf="@+id/divider_left" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivApproved"
+                        android:background="@drawable/icon_approved_grey"
+                        android:layout_toRightOf="@+id/divider_right" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llIcons"
+                    android:id="@+id/llTxt">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DOCUMENTS\nRECEIVED"
+                        android:id="@+id/tvDocuments"
+                        android:textAlignment="center"
+                        android:layout_alignTop="@+id/tvProcessing"
+                        android:layout_toLeftOf="@+id/tvProcessing"
+                        android:layout_toStartOf="@+id/tvProcessing"
+                        android:layout_marginRight="24dp"
+                        android:textColor="#33ACA1"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PROCESSING"
+                        android:id="@+id/tvProcessing"
+                        android:textAlignment="center"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#33ACA1"
+                        android:visibility="invisible"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvStatus"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:layout_alignTop="@+id/tvProcessing"
+                        android:layout_toRightOf="@+id/tvProcessing"
+                        android:layout_marginLeft="26dp"
+                        android:visibility="visible" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E3E2DF"
+                    android:id="@+id/divider_gray"
+                    android:layout_below="@+id/tvProcessing"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rlApproved"
+                    android:visibility="gone">
+
+                    <!--<ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivTick"
+                        android:background="@drawable/icon_approved_tick"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="32dp"
+                        android:visibility="visible"/>-->
+
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivTick"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="32dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CONGRATULATIONS"
+                        android:id="@+id/tvCongratulations"
+                        android:textColor="#33ACA1"
+                        android:layout_below="@+id/ivTick"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:visibility="visible"
+                        android:textIsSelectable="false"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your documents verification is done."
+                        android:id="@+id/tvDone"
+                        android:layout_below="@+id/tvCongratulations"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:visibility="visible"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvDone"
+                        android:id="@+id/ibGetYourCashe"
+                        android:background="@drawable/btn_getyourcashe"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="32dp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/divider_one"
+                    android:id="@+id/rlInEligible"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="You are not eligible this time.\nTry again later."
+                        android:id="@+id/tvInEligible"
+                        android:layout_marginTop="42dp"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        android:textColor="#FF0000" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/ibTryAgain"
+                        android:layout_below="@+id/tvInEligible"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        android:background="@drawable/btn_tryagain"
+                        android:layout_centerHorizontal="true" />
+
+                    <!--<ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ibQuery"
+                        android:background="@drawable/footer_gradient"
+                        android:layout_below="@+id/tvKnowMore"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp" />-->
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/divider_one"
+                    android:id="@+id/rlInvalid"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivDocs"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/icon_provide_documents"
+                        android:layout_marginTop="32dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your approval failed due to the following reasons:"
+                        android:id="@+id/tvInvalid"
+                        android:layout_below="@id/ivDocs"
+                        android:layout_marginTop="16dp"
+                        android:textSize="16sp"
+                        android:textColor="#726F5E"
+                        android:layout_centerHorizontal="true"
+                        android:textStyle="bold"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvDocsToProvide"
+                        android:layout_below="@id/tvInvalid"
+                        android:layout_marginTop="16dp"
+                        android:inputType="textNoSuggestions|textMultiLine"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="8dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvDocsToProvide"
+                        android:layout_marginTop="24dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="12dp"
+                                android:id="@+id/ibSubmit"
+                                android:background="@drawable/btn_submit"/>
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/llKnowMore"
+                android:layout_below="@+id/llBody"
+                android:gravity="center_horizontal|bottom"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To know more"
+                    android:id="@+id/tvKnowMore"
+                    android:layout_marginTop="42dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tvInEligible"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textColor="#726F5E"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/footer_gradient"
+                    android:layout_below="@+id/tvKnowMore"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/support"
+                    android:layout_marginTop="15dp"
+                    android:text="support@cashe.co.in"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

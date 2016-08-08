@@ -1,0 +1,20 @@
+# We'll display some more statistics about the processed code.
+-verbose
+
+# Dagger generates classes based on your annotations. By default DexGuard already
+# keeps the generated classes e.g. **$$ModuleAdapter
+#
+# You do however still need to manually preserve the corresponding base classes
+# from your project. For example, for a generated class like
+# com.example.SomeClass$$ModuleAdapter, you still need to specify:
+# 
+# -keep class com.example.SomeClass
+# 
+# That way, Dagger can combine the corresponding pairs of classes, based on
+# their names. You can figure out the base classes by listing the generated
+# classes in the gen directory (build/intermediates/classes) of your project
+# (e.g. com/examples/SomeClass$$ModuleAdapter.java).
+-keep class com.example.dagger.simple.AndroidModule
+-keep class com.example.dagger.simple.DemoModule
+-keep class com.example.dagger.simple.ui.HomeActivity
+-keep class com.example.dagger.simple.DemoBaseActivity

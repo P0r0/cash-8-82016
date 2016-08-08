@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        flatDir {
+            dirs '../../../lib'        // For the DexGuard plugin.
+        jcenter()                      // For the Android plugin.
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath ':dexguard:'
+    }
+}
+
+repositories{
+      flatDir{
+              dirs 'libs'
+       }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'dexguard'
+
+dependencies {
+    compile(name:'netcipher-1.2', ext:'aar')
+}
+
+android {
+    buildToolsVersion "23.0.2"
+    compileSdkVersion 23
+
+    signingConfigs {
+        debug {
+            storeFile     file('../../debug.keystore')
+            storePassword 'android'
+            keyAlias      'androiddebugkey'
+            keyPassword   'android'
+        }
+    }
+
+    defaultConfig {
+        signingConfig signingConfigs.debug
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs         = ['src']
+            resources.srcDirs    = ['src']
+            aidl.srcDirs         = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs          = ['res']
+            assets.srcDirs       = ['assets']
+        }
+
+        instrumentTest.setRoot('tests')
+    }
+
+    buildTypes {
+        debug {
+            proguardFile getDefaultDexGuardFile('dexguard-debug.pro')
+            proguardFile 'dexguard-project.txt'
+            //proguardFile 'dexguard-project-debug.txt'
+            proguardFile 'proguard-project.txt'
+        }
+        release {
+            proguardFile getDefaultDexGuardFile('dexguard-release.pro')
+            proguardFile 'dexguard-project.txt'
+            //proguardFile 'dexguard-project-release.txt'
+            proguardFile 'proguard-project.txt'
+        }
+    }
+}
+
+// Show DexGuard's console output, so we can see some statistics.
+//afterEvaluate {
+//    dexguardRelease.logging.level = 'INFO'
+//}

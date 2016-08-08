@@ -1,0 +1,16 @@
+# Print out some statistics.
+-verbose
+
+# Only keep our specified public API (combined with the aggressive
+# default configuration in build.gradle).
+
+-keep public class
+    com.android.vending.expansion.zipfile.ZipResourceFile,
+    com.android.vending.expansion.zipfile.ZipResourceFile$ZipEntryRO {
+        public protected *;
+}
+
+# Further harden the code inside the classes.
+-encryptstrings class com.google.expansion.zipfile.**
+
+-obfuscatecode,medium class com.google.expansion.zipfile.**

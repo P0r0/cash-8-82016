@@ -1,0 +1,16 @@
+# Print out some statistics.
+-verbose
+
+# Only keep our specified public API (combined with the aggressive
+# default configuration in build.gradle).
+
+-keep public class com.google.android.vending.expansion.downloader.* {
+    public protected *;
+}
+
+-keep class com.google.android.vending.expansion.downloader.impl.DownloaderService
+
+# Further harden the code inside the classes.
+-encryptstrings class com.google.android.vending.expansion.downloader.**
+
+-obfuscatecode,medium class com.google.android.vending.expansion.downloader.**
